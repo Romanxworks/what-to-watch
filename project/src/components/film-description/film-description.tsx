@@ -1,5 +1,5 @@
 type FilmDescriptionProps = {
-  isMain: boolean;
+  isMain?: boolean;
   title: string;
   genre: string;
   year: string;
@@ -28,7 +28,7 @@ function FilmDescription({isMain = false, title, genre, year}:FilmDescriptionPro
           <span>My list</span>
           <span className="film-card__count">9</span>
         </button>
-        {isMain ? '' : <a href="add-review.html" className="btn film-card__button">Add review</a>}
+        {isMain ? null : <a href="add-review.html" className="btn film-card__button">Add review</a>}
       </div>
     </div>
   );

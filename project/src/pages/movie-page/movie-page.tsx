@@ -17,7 +17,7 @@ function MoviePage(): JSX.Element{
           <h1 className="visually-hidden">WTW</h1>
           <Header />
           <div className="film-card__wrap">
-            <FilmDescription isMain={false} title={'test'} genre={'horror'} year={'2015'} />
+            <FilmDescription title={'test'} genre={'horror'} year={'2015'} />
           </div>
         </div>
 

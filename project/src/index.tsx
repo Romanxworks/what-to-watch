@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
 const StartSetting = {
-  isMain: true,
   title: 'Hoter Add',
   genre: 'horror',
   year: '2015'
