@@ -1,11 +1,14 @@
+import {Link} from 'react-router-dom';
+
 type FilmDescriptionProps = {
   isMain?: boolean;
   title: string;
   genre: string;
   year: string;
+  id: number;
 }
 
-function FilmDescription({isMain = false, title, genre, year}:FilmDescriptionProps): JSX.Element{
+function FilmDescription({isMain = false, title, genre, year, id}:FilmDescriptionProps): JSX.Element{
   return (
     <div className="film-card__desc">
       <h2 className="film-card__title">{title}</h2>
@@ -28,7 +31,7 @@ function FilmDescription({isMain = false, title, genre, year}:FilmDescriptionPro
           <span>My list</span>
           <span className="film-card__count">9</span>
         </button>
-        {isMain ? null : <a href="add-review.html" className="btn film-card__button">Add review</a>}
+        {isMain ? null : <Link to={'review'} className="btn film-card__button">Add review</Link>}
       </div>
     </div>
   );

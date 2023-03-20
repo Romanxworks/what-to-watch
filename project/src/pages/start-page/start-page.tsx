@@ -22,11 +22,11 @@ function StartPage({title, genre, year}:StartPageProps): JSX.Element {
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
-        <Header />
+        <Header isAuth/>
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <FilmPoster isBigPoster={false}/>
-            <FilmDescription isMain title={title} genre={genre} year={year}/>
+            <FilmPoster />
+            <FilmDescription isMain title={title} genre={genre} year={year} id={2}/>
           </div>
         </div>
       </section>
