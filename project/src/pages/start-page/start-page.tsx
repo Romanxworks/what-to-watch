@@ -7,14 +7,13 @@ import FilmDescription from '../../components/film-description/film-description'
 import FilmPoster from '../../components/film-poster/film-poster';
 
 type StartPageProps = {
-  isMain: boolean;
   title: string;
   genre: string;
   year: string;
 }
 
 
-function StartPage({isMain, title, genre, year}:StartPageProps): JSX.Element {
+function StartPage({title, genre, year}:StartPageProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -23,11 +22,11 @@ function StartPage({isMain, title, genre, year}:StartPageProps): JSX.Element {
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
-        <Header />
+        <Header isAuth/>
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <FilmPoster isBigPoster={false}/>
-            <FilmDescription isMain={isMain} title={title} genre={genre} year={year}/>
+            <FilmPoster />
+            <FilmDescription isMain title={title} genre={genre} year={year} id={2}/>
           </div>
         </div>
       </section>

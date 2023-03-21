@@ -5,6 +5,7 @@ import FilmCardNav from '../../components/film-card-nav/film-card-nav';
 import FilmOverview from '../../components/film-overview/film-overview';
 import FilmPoster from '../../components/film-poster/film-poster';
 import FilmDescription from '../../components/film-description/film-description';
+
 function MoviePage(): JSX.Element{
   return(
     <>
@@ -15,15 +16,15 @@ function MoviePage(): JSX.Element{
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
-          <Header />
+          <Header isAuth/>
           <div className="film-card__wrap">
-            <FilmDescription isMain={false} title={'test'} genre={'horror'} year={'2015'} />
+            <FilmDescription title={'test'} genre={'horror'} year={'2015'} id={2}/>
           </div>
         </div>
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmPoster isBigPoster/>
+            <FilmPoster posterSize={'big'}/>
             <div className="film-card__desc">
               <FilmCardNav />
               <FilmOverview />
