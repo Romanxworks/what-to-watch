@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import {AppRoute} from '../const';
 
 type FilmDescriptionProps = {
   isMain?: boolean;
@@ -31,7 +32,7 @@ function FilmDescription({isMain = false, title, genre, year, id}:FilmDescriptio
           <span>My list</span>
           <span className="film-card__count">9</span>
         </button>
-        {isMain ? null : <Link to={'review'} className="btn film-card__button">Add review</Link>}
+        {isMain ? null : <Link to={AppRoute.Review} className="btn film-card__button">Add review</Link>}
       </div>
     </div>
   );

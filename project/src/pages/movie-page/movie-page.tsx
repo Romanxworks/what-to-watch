@@ -5,6 +5,7 @@ import FilmCardNav from '../../components/film-card-nav/film-card-nav';
 import FilmOverview from '../../components/film-overview/film-overview';
 import FilmPoster from '../../components/film-poster/film-poster';
 import FilmDescription from '../../components/film-description/film-description';
+
 function MoviePage(): JSX.Element{
   return(
     <>

@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 type BreadcrumbsProps = {
   filmName: string;
 }
@@ -8,10 +10,10 @@ function Breadcrumbs({filmName}: BreadcrumbsProps): JSX.Element{
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <a href="film-page.html" className="breadcrumbs__link">{filmName}</a>
+          <Link to="/" className="breadcrumbs__link">{filmName}</Link>
         </li>
         <li className="breadcrumbs__item">
-          <a href="/" className="breadcrumbs__link">Add review</a>
+          <Link to="/" className="breadcrumbs__link">Add review</Link>
         </li>
       </ul>
     </nav>
