@@ -13,6 +13,12 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum FilmDescType {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}
+
 export const GENRES: string[] = ['All genres',
   'Comedies',
   'Crime',

@@ -2,11 +2,14 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
 import FilmCardNav from '../../components/film-card-nav/film-card-nav';
-import FilmOverview from '../../components/film-overview/film-overview';
 import FilmPoster from '../../components/film-poster/film-poster';
 import FilmDescription from '../../components/film-description/film-description';
+import FilmCardDescription from '../../components/film-card-description/film-card-description';
+import {useState} from 'react';
+import {FilmDescType} from '../../components/const';
 
 function MoviePage(): JSX.Element{
+  const [filmDescType, setFilmDescType] = useState(FilmDescType.Overview);
   return(
     <>
       <section className="film-card film-card--full">
@@ -26,8 +29,8 @@ function MoviePage(): JSX.Element{
           <div className="film-card__info">
             <FilmPoster posterSize={'big'}/>
             <div className="film-card__desc">
-              <FilmCardNav />
-              <FilmOverview />
+              <FilmCardNav filmTypeChange={setFilmDescType}/>
+              <FilmCardDescription typeDesc={filmDescType} />
             </div>
           </div>
         </div>
