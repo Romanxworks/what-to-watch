@@ -6,7 +6,7 @@ function GenresList(): JSX.Element{
   return(
     <ul className="catalog__genres-list">
       {GENRES.map((genre, index)=>(
-        <li key ={genre.slice(6)} className={`catalog__genres-item 
+        <li key ={genre} className={`catalog__genres-item 
         ${index === 0 ? activeClass : ''}`}
         >
           <Link to={AppRoute.Main} className="catalog__genres-link">{genre}</Link>

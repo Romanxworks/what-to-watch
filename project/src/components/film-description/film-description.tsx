@@ -1,15 +1,16 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../const';
+import {AuthStatus} from '../const';
 
 type FilmDescriptionProps = {
-  isMain?: boolean;
+  authStatus: AuthStatus;
   title: string;
   genre: string;
-  year: string;
+  year: number;
   id: number;
 }
 
-function FilmDescription({isMain = false, title, genre, year, id}:FilmDescriptionProps): JSX.Element{
+function FilmDescription({authStatus, title, genre, year, id}:FilmDescriptionProps): JSX.Element{
+  const isAuth = authStatus === AuthStatus.Auth;
   return (
     <div className="film-card__desc">
       <h2 className="film-card__title">{title}</h2>
@@ -30,9 +31,9 @@ function FilmDescription({isMain = false, title, genre, year, id}:FilmDescriptio
             <use xlinkHref="#add"></use>
           </svg>
           <span>My list</span>
-          <span className="film-card__count">9</span>
+          {isAuth ? <span className="film-card__count">9</span> : null}
         </button>
-        {isMain ? null : <Link to={AppRoute.Review} className="btn film-card__button">Add review</Link>}
+        {isAuth ? <Link to={`/film/${id}/review`} className="btn film-card__button">Add review</Link> : null}
       </div>
     </div>
   );

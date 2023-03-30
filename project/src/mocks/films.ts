@@ -116,7 +116,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: 6,
+    id: 7,
     name: 'Mindhunter',
     posterImage: 'img/mindhunter.jpg',
     previewImage: 'img/mindhunter.jpg',
@@ -135,7 +135,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: 7,
+    id: 8,
     name: 'Moonrise Kingdom',
     posterImage: 'img/moonrise-kingdom.jpg',
     previewImage: 'img/moonrise-kingdom.jpg',
@@ -154,7 +154,7 @@ export const films: Film[] = [
     isFavorite: false,
   },
   {
-    id: 8,
+    id: 9,
     name: 'Shutter Island',
     posterImage: 'img/shutter-island.jpg',
     previewImage: 'img/shutter-island.jpg',

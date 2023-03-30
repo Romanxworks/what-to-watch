@@ -6,45 +6,59 @@ import FilmPoster from '../../components/film-poster/film-poster';
 import FilmDescription from '../../components/film-description/film-description';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import {useState} from 'react';
-import {FilmDescType} from '../../components/const';
+import {AuthStatus, FilmDescType} from '../../components/const';
+import {Film} from '../../types/film';
+import {useParams} from 'react-router-dom';
+import ErrorPage from '../error-page/error-page';
 
-function MoviePage(): JSX.Element{
+type MoviePageProps = {
+  authStatus: AuthStatus;
+  films: Film[];
+}
+
+function MoviePage({authStatus, films}: MoviePageProps): JSX.Element{
+  const {id} = useParams();
+  const filmById = films.find((film) => film.id === Number(id)) as Film;
   const [filmDescType, setFilmDescType] = useState(FilmDescType.Overview);
-  return(
-    <>
-      <section className="film-card film-card--full">
-        <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-          </div>
+  const {name, backgroundImage, genre, released, posterImage} = filmById;
+  return filmById ?
+    (
+      <>
+        <section className="film-card film-card--full">
+          <div className="film-card__hero">
+            <div className="film-card__bg">
+              <img src={backgroundImage} alt={name} />
+            </div>
 
-          <h1 className="visually-hidden">WTW</h1>
-          <Header isAuth/>
-          <div className="film-card__wrap">
-            <FilmDescription title={'test'} genre={'horror'} year={'2015'} id={2}/>
-          </div>
-        </div>
-
-        <div className="film-card__wrap film-card__translate-top">
-          <div className="film-card__info">
-            <FilmPoster posterSize={'big'}/>
-            <div className="film-card__desc">
-              <FilmCardNav filmTypeChange={setFilmDescType} typeDesc={filmDescType}/>
-              <FilmCardDescription typeDesc={filmDescType} />
+            <h1 className="visually-hidden">WTW</h1>
+            <Header authStatus={authStatus}/>
+            <div className="film-card__wrap">
+              <FilmDescription authStatus={authStatus} title={name} genre={genre} year={released} id={Number(id)}/>
             </div>
           </div>
-        </div>
-      </section>
 
-      <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          <FilmsList />
+          <div className="film-card__wrap film-card__translate-top">
+            <div className="film-card__info">
+              <FilmPoster posterSize={'big'} title={name} poster={posterImage}/>
+              <div className="film-card__desc">
+                <FilmCardNav filmTypeChange={setFilmDescType} typeDesc={filmDescType}/>
+                <FilmCardDescription typeDesc={filmDescType} film={filmById}/>
+              </div>
+            </div>
+          </div>
         </section>
-        <Footer />
-      </div>
-    </>
-  );
+
+        <div className="page-content">
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+            <FilmsList films={films.slice(5, 9)}/>
+          </section>
+          <Footer />
+        </div>
+      </>
+    ) :
+    <ErrorPage />;
 }
+
 
 export default MoviePage;

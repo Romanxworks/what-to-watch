@@ -1,7 +1,12 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../const';
 
-function UserBlock(): JSX.Element{
+type UserBlockProps = {
+  isAuth: boolean;
+}
+
+function UserBlock({isAuth}: UserBlockProps): JSX.Element{
+  const userLinkText = isAuth ? 'Sign out' : 'Sign in';
   return (
     <ul className="user-block">
       <li className="user-block__item">
@@ -10,7 +15,7 @@ function UserBlock(): JSX.Element{
         </div>
       </li>
       <li className="user-block__item">
-        <Link className="user-block__link" to={AppRoute.Login}>Sign out</Link>
+        <Link className="user-block__link" to={AppRoute.Login}>{userLinkText}</Link>
       </li>
     </ul>
   );

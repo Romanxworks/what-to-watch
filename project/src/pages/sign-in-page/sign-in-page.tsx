@@ -1,13 +1,21 @@
+import {useNavigate} from 'react-router-dom';
+import {AppRoute, AuthStatus} from '../../components/const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
-function SingInPage(): JSX.Element {
+type SingInPageProps = {
+  authStatus: AuthStatus;
+}
+
+
+function SingInPage({authStatus}: SingInPageProps): JSX.Element {
+  const navigate = useNavigate();
   return(
     <div className="user-page">
-      <Header title='Sign in' isAuth={false}/>
+      <Header title='Sign in' authStatus={authStatus}/>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form action="#" className="sign-in__form" onSubmit={()=>navigate(AppRoute.Main)}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
