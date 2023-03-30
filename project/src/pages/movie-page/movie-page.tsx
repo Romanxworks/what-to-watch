@@ -29,7 +29,7 @@ function MoviePage(): JSX.Element{
           <div className="film-card__info">
             <FilmPoster posterSize={'big'}/>
             <div className="film-card__desc">
-              <FilmCardNav filmTypeChange={setFilmDescType}/>
+              <FilmCardNav filmTypeChange={setFilmDescType} typeDesc={filmDescType}/>
               <FilmCardDescription typeDesc={filmDescType} />
             </div>
           </div>

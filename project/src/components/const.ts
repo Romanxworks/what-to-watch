@@ -19,7 +19,8 @@ export enum FilmDescType {
   Reviews = 'Reviews',
 }
 
-export const GENRES: string[] = ['All genres',
+export const GENRES: string[] = [
+  'All genres',
   'Comedies',
   'Crime',
   'Documentary',
@@ -30,3 +31,5 @@ export const GENRES: string[] = ['All genres',
   'Sci-Fi',
   'Thrillers'
 ];
+
+export const STAR_COUNT = 10;

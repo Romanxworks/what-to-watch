@@ -9,7 +9,8 @@
 * JSX/TSX  - отрисовка компонентов.
 * React Router - установка маршрутов.
 * React Hooks - знакомство и применение хуков:
-    * useState - ...
+    * useState - состояние компонента;
+    * 
 
 ----
 Учебный проект курса «[React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react)» от [HTML Academy](https://htmlacademy.ru).
