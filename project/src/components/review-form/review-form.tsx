@@ -1,43 +1,38 @@
+import {FormEvent, useState} from 'react';
+import {STAR_COUNT} from '../const';
+import FormRatingStar from '../form-rating-star/form-rating-star';
+
 function ReviewForm(): JSX.Element{
+  const [rating, setRating] = useState(5);
+  const [review, setReview] = useState('');
+  function onSubmitHandler(evt: FormEvent<HTMLFormElement>){
+    evt.preventDefault();
+    setRating(0);
+    setReview('');
+  }
+  function getStarList(){
+    const stars = [];
+    for(let i = STAR_COUNT; i > 0; i--){
+      stars.push(<FormRatingStar starCount={i} checkedHandle={setRating} rating={rating} key={i}/>);
+    }
+    return stars;
+  }
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form action="#" className="add-review__form" onSubmit={onSubmitHandler}>
         <div className="rating">
           <div className="rating__stars">
-            <input className="rating__input" id="star-10" type="radio" name="rating" value="10" />
-            <label className="rating__label" htmlFor="star-10">Rating 10</label>
-
-            <input className="rating__input" id="star-9" type="radio" name="rating" value="9" />
-            <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-            <input className="rating__input" id="star-8" type="radio" name="rating" value="8" checked />
-            <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-            <input className="rating__input" id="star-7" type="radio" name="rating" value="7" />
-            <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-            <input className="rating__input" id="star-6" type="radio" name="rating" value="6" />
-            <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-            <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
-            <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-            <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
-            <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-            <input className="rating__input" id="star-3" type="radio" name="rating" value="3" />
-            <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-            <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
-            <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-            <input className="rating__input" id="star-1" type="radio" name="rating" value="1" />
-            <label className="rating__label" htmlFor="star-1">Rating 1</label>
+            {
+              getStarList()
+            }
           </div>
         </div>
 
         <div className="add-review__text">
-          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={review}
+            onChange={(evt)=> setReview(evt.target.value)}
+          >
+          </textarea>
           <div className="add-review__submit">
             <button className="add-review__btn" type="submit">Post</button>
           </div>

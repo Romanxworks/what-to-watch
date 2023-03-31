@@ -10,10 +10,10 @@ function Breadcrumbs({filmName}: BreadcrumbsProps): JSX.Element{
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <Link to="/" className="breadcrumbs__link">{filmName}</Link>
+          <Link to=".." className="breadcrumbs__link">{filmName}</Link>
         </li>
         <li className="breadcrumbs__item">
-          <Link to="/" className="breadcrumbs__link">Add review</Link>
+          <Link to=".." className="breadcrumbs__link">Add review</Link>
         </li>
       </ul>
     </nav>

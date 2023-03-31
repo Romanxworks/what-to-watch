@@ -1,9 +1,9 @@
 export enum AppRoute {
   Login = '/login',
-  Film = '/films/:id',
+  Film = '/films',
   MyList = '/mylist',
   Main = '/',
-  Player = '/player/:id',
+  Player = '/player',
   Review = 'review'
 }
 
@@ -13,7 +13,14 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const GENRES: string[] = ['All genres',
+export enum FilmDescType {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}
+
+export const GENRES: string[] = [
+  'All genres',
   'Comedies',
   'Crime',
   'Documentary',
@@ -24,3 +31,5 @@ export const GENRES: string[] = ['All genres',
   'Sci-Fi',
   'Thrillers'
 ];
+
+export const STAR_COUNT = 10;

@@ -1,15 +1,16 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute} from '../const';
 
 type FilmDescriptionProps = {
-  isMain?: boolean;
+  authStatus: boolean;
   title: string;
   genre: string;
-  year: string;
+  year: number;
   id: number;
 }
 
-function FilmDescription({isMain = false, title, genre, year, id}:FilmDescriptionProps): JSX.Element{
+function FilmDescription({authStatus, title, genre, year, id}:FilmDescriptionProps): JSX.Element{
+  const navigate = useNavigate();
   return (
     <div className="film-card__desc">
       <h2 className="film-card__title">{title}</h2>
@@ -19,20 +20,24 @@ function FilmDescription({isMain = false, title, genre, year, id}:FilmDescriptio
       </p>
 
       <div className="film-card__buttons">
-        <button className="btn btn--play film-card__button" type="button">
+        <button className="btn btn--play film-card__button" type="button"
+          onClick={()=> navigate(`${AppRoute.Player}/${id}`)}
+        >
           <svg viewBox="0 0 19 19" width="19" height="19">
             <use xlinkHref="#play-s"></use>
           </svg>
           <span>Play</span>
         </button>
-        <button className="btn btn--list film-card__button" type="button">
+        <button className="btn btn--list film-card__button" type="button"
+          onClick={()=>navigate(authStatus ? AppRoute.MyList : AppRoute.Login)}
+        >
           <svg viewBox="0 0 19 20" width="19" height="20">
             <use xlinkHref="#add"></use>
           </svg>
           <span>My list</span>
-          <span className="film-card__count">9</span>
+          {authStatus ? <span className="film-card__count">9</span> : null}
         </button>
-        {isMain ? null : <Link to={AppRoute.Review} className="btn film-card__button">Add review</Link>}
+        {authStatus ? <Link to={`/film/${id}/review`} className="btn film-card__button">Add review</Link> : null}
       </div>
     </div>
   );

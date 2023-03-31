@@ -2,46 +2,64 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
 import FilmCardNav from '../../components/film-card-nav/film-card-nav';
-import FilmOverview from '../../components/film-overview/film-overview';
 import FilmPoster from '../../components/film-poster/film-poster';
 import FilmDescription from '../../components/film-description/film-description';
+import FilmCardDescription from '../../components/film-card-description/film-card-description';
+import {useState} from 'react';
+import {AuthStatus, FilmDescType} from '../../components/const';
+import {Film} from '../../types/film';
+import {useParams} from 'react-router-dom';
+import ErrorPage from '../error-page/error-page';
 
-function MoviePage(): JSX.Element{
-  return(
-    <>
-      <section className="film-card film-card--full">
-        <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-          </div>
+type MoviePageProps = {
+  authStatus: AuthStatus;
+  films: Film[];
+}
 
-          <h1 className="visually-hidden">WTW</h1>
-          <Header isAuth/>
-          <div className="film-card__wrap">
-            <FilmDescription title={'test'} genre={'horror'} year={'2015'} id={2}/>
-          </div>
-        </div>
+function MoviePage({authStatus, films}: MoviePageProps): JSX.Element{
+  const isAuth = authStatus === AuthStatus.Auth;
+  const {id} = useParams();
+  const filmById = films.find((film) => film.id === Number(id)) as Film;
+  const [filmDescType, setFilmDescType] = useState(FilmDescType.Overview);
+  const {name, backgroundImage, genre, released, posterImage} = filmById;
+  return filmById ?
+    (
+      <>
+        <section className="film-card film-card--full">
+          <div className="film-card__hero">
+            <div className="film-card__bg">
+              <img src={isAuth ? backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? name : 'gues'} />
+            </div>
 
-        <div className="film-card__wrap film-card__translate-top">
-          <div className="film-card__info">
-            <FilmPoster posterSize={'big'}/>
-            <div className="film-card__desc">
-              <FilmCardNav />
-              <FilmOverview />
+            <h1 className="visually-hidden">WTW</h1>
+            <Header authStatus={isAuth}/>
+            <div className="film-card__wrap">
+              <FilmDescription authStatus={isAuth} title={name} genre={genre} year={released} id={Number(id)}/>
             </div>
           </div>
-        </div>
-      </section>
 
-      <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          <FilmsList />
+          <div className="film-card__wrap film-card__translate-top">
+            <div className="film-card__info">
+              <FilmPoster posterSize={'big'} title={name} poster={posterImage}/>
+              <div className="film-card__desc">
+                <FilmCardNav filmTypeChange={setFilmDescType} typeDesc={filmDescType}/>
+                <FilmCardDescription typeDesc={filmDescType} film={filmById}/>
+              </div>
+            </div>
+          </div>
         </section>
-        <Footer />
-      </div>
-    </>
-  );
+
+        <div className="page-content">
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+            <FilmsList films={films.slice(5, 9)}/>
+          </section>
+          <Footer />
+        </div>
+      </>
+    ) :
+    <ErrorPage />;
 }
+
 
 export default MoviePage;

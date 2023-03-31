@@ -8,30 +8,41 @@ import MyListPage from '../../pages/my-list-page/my-list-page';
 import {AppRoute, AuthStatus} from '../const';
 import ErrorPage from '../../pages/error-page/error-page';
 import PrivateRoute from '../private-route/private-route';
+import {Film} from '../../types/film';
 
 type AppProps = {
-  title: string;
-  genre: string;
-  year: string;
+  films: Film[];
 }
 
-function App({title, genre, year}: AppProps): JSX.Element {
+function App({films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}>
-          <Route index element={<StartPage title={title} genre={genre} year={year}/>}/>
+          <Route index element={
+            <StartPage
+              authStatus={AuthStatus.NoAuth}
+              promoFilm={films[0]}
+              films={films}
+            />
+          }
+          />
           <Route path={AppRoute.MyList} element={
             <PrivateRoute authStatus={AuthStatus.NoAuth}>
-              <MyListPage />
+              <MyListPage myFilms={films.slice(2)} authStatus={AuthStatus.NoAuth} />
             </PrivateRoute>
           }
           />
           <Route path={`${AppRoute.Player}/:id`} element={<PlayerPage />}/>
-          <Route path={AppRoute.Login} element={<SingInPage />}/>
-          <Route path={AppRoute.Film}>
-            <Route index element={<MoviePage />}/>
-            <Route path={AppRoute.Review} element={<AddReviewPage />}/>
+          <Route path={AppRoute.Login} element={<SingInPage authStatus={AuthStatus.NoAuth}/>}/>
+          <Route path={`${AppRoute.Film}/:id`}>
+            <Route index element={<MoviePage authStatus={AuthStatus.NoAuth} films={films}/>}/>
+            <Route path={AppRoute.Review} element={
+              <PrivateRoute authStatus={AuthStatus.NoAuth}>
+                <AddReviewPage films={films}/>
+              </PrivateRoute>
+            }
+            />
           </Route>
           <Route
             path="*"

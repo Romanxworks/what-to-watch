@@ -8,10 +8,10 @@ type HeaderProps = {
   title?: string;
   filmName?: string;
   count?: number;
-  isAuth: boolean;
+  authStatus: boolean;
 }
 
-function Header({title, filmName, count, isAuth}: HeaderProps): JSX.Element{
+function Header({title, filmName, count, authStatus}: HeaderProps): JSX.Element{
   return(
     <header className="page-header user-page__head film-card__head">
       <div className="logo">
@@ -23,7 +23,7 @@ function Header({title, filmName, count, isAuth}: HeaderProps): JSX.Element{
       </div>
       {title && <HeaderTitle title={title} count={count}/>}
       {filmName && <Breadcrumbs filmName={filmName}/>}
-      {isAuth && <UserBlock />}
+      <UserBlock isAuth={authStatus} />
     </header>
   );
 }
