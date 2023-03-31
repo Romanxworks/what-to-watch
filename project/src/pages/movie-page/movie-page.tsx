@@ -17,6 +17,7 @@ type MoviePageProps = {
 }
 
 function MoviePage({authStatus, films}: MoviePageProps): JSX.Element{
+  const isAuth = authStatus === AuthStatus.Auth;
   const {id} = useParams();
   const filmById = films.find((film) => film.id === Number(id)) as Film;
   const [filmDescType, setFilmDescType] = useState(FilmDescType.Overview);
@@ -27,13 +28,13 @@ function MoviePage({authStatus, films}: MoviePageProps): JSX.Element{
         <section className="film-card film-card--full">
           <div className="film-card__hero">
             <div className="film-card__bg">
-              <img src={backgroundImage} alt={name} />
+              <img src={isAuth ? backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? name : 'gues'} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
-            <Header authStatus={authStatus}/>
+            <Header authStatus={isAuth}/>
             <div className="film-card__wrap">
-              <FilmDescription authStatus={authStatus} title={name} genre={genre} year={released} id={Number(id)}/>
+              <FilmDescription authStatus={isAuth} title={name} genre={genre} year={released} id={Number(id)}/>
             </div>
           </div>
 

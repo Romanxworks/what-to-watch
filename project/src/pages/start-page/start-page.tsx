@@ -17,19 +17,20 @@ type StartPageProps = {
 
 function StartPage({promoFilm, films, authStatus}:StartPageProps): JSX.Element {
   const {id, name, backgroundImage, genre, released, posterImage} = promoFilm;
+  const isAuth = authStatus === AuthStatus.Auth;
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={backgroundImage} alt={name} />
+          <img src={isAuth ? backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? name : 'gues'} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
-        <Header authStatus={authStatus}/>
+        <Header authStatus={isAuth}/>
         <div className="film-card__wrap">
           <div className="film-card__info">
             <FilmPoster poster={posterImage} title={name}/>
-            <FilmDescription authStatus={authStatus} title={name} genre={genre} year={released} id={id}/>
+            <FilmDescription authStatus={isAuth} title={name} genre={genre} year={released} id={id}/>
           </div>
         </div>
       </section>

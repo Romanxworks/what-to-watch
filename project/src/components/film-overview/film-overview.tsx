@@ -1,4 +1,5 @@
 import {Film} from '../../types/film';
+import {getScoreDesc} from '../utils';
 
 type FilmOverviewProps = {
   film: Film;
@@ -11,7 +12,7 @@ function FilmOverview({film}: FilmOverviewProps): JSX.Element{
       <div className="film-rating">
         <div className="film-rating__score">{rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">Very good</span>
+          <span className="film-rating__level">{getScoreDesc(rating)}</span>
           <span className="film-rating__count">{scoresCount} ratings</span>
         </p>
       </div>

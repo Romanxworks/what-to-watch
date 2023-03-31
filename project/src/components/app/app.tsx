@@ -29,15 +29,20 @@ function App({films}: AppProps): JSX.Element {
           />
           <Route path={AppRoute.MyList} element={
             <PrivateRoute authStatus={AuthStatus.NoAuth}>
-              <MyListPage myFilms={films.slice(2)}/>
+              <MyListPage myFilms={films.slice(2)} authStatus={AuthStatus.NoAuth} />
             </PrivateRoute>
           }
           />
           <Route path={`${AppRoute.Player}/:id`} element={<PlayerPage />}/>
           <Route path={AppRoute.Login} element={<SingInPage authStatus={AuthStatus.NoAuth}/>}/>
-          <Route path={AppRoute.Film}>
+          <Route path={`${AppRoute.Film}/:id`}>
             <Route index element={<MoviePage authStatus={AuthStatus.NoAuth} films={films}/>}/>
-            <Route path={AppRoute.Review} element={<AddReviewPage films={films}/>}/>
+            <Route path={AppRoute.Review} element={
+              <PrivateRoute authStatus={AuthStatus.NoAuth}>
+                <AddReviewPage films={films}/>
+              </PrivateRoute>
+            }
+            />
           </Route>
           <Route
             path="*"

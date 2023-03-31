@@ -6,13 +6,15 @@ import {Film} from '../../types/film';
 
 type MyListPageProps = {
   myFilms: Film[];
+  authStatus: AuthStatus;
 }
 
-function MyListPage({myFilms}: MyListPageProps): JSX.Element{
+function MyListPage({myFilms, authStatus}: MyListPageProps): JSX.Element{
   const count = myFilms.length;
+  const isAuth = authStatus === AuthStatus.Auth;
   return(
     <div className="user-page">
-      <Header title='My list' count={count} authStatus={AuthStatus.NoAuth}/>
+      <Header title='My list' count={count} authStatus={isAuth}/>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 

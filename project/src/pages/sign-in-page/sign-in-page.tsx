@@ -1,3 +1,4 @@
+import { ChangeEvent, FormEvent, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../components/const';
 import Footer from '../../components/footer/footer';
@@ -7,22 +8,35 @@ type SingInPageProps = {
   authStatus: AuthStatus;
 }
 
-
 function SingInPage({authStatus}: SingInPageProps): JSX.Element {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({email:'', password: ''});
+  const isAuth = authStatus === AuthStatus.Auth;
+
+  function onChangeFormDataHandle({target}: ChangeEvent<HTMLInputElement>){
+    setFormData({...formData, [target.type]:target.value});
+  }
+
+  function onSubmitHandle(evt: FormEvent<HTMLFormElement>){
+    evt.preventDefault();
+    setFormData({email:'', password: ''});
+    return navigate(AppRoute.Main);
+  }
   return(
     <div className="user-page">
-      <Header title='Sign in' authStatus={authStatus}/>
+      <Header title='Sign in' authStatus={isAuth}/>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={()=>navigate(AppRoute.Main)}>
+        <form action="#" className="sign-in__form" onSubmit={onSubmitHandle}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
+              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" value={formData.email} onChange={onChangeFormDataHandle}/>
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" value={formData.password}
+                onChange={onChangeFormDataHandle}
+              />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>

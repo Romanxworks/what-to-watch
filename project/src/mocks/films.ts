@@ -144,7 +144,7 @@ export const films: Film[] = [
     videoLink: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     previewVideoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'Nulla et vulputate massa, vitae lobortis purus.',
-    rating: 7.6,
+    rating: 4.6,
     scoresCount: 590,
     director: 'Уэс Андерсон',
     starring: ['Брюс Уиллис'],

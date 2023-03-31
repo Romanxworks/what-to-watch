@@ -3,7 +3,7 @@ import {FilmDescType} from '../const';
 
 type FilmCardDescriptionProps = {
   typeDesc: string;
-  filmTypeChange:(value: FilmDescType)=> void;
+  filmTypeChange:(typeDesc: FilmDescType)=> void;
 }
 
 function FilmCardNav({filmTypeChange, typeDesc}: FilmCardDescriptionProps): JSX.Element{

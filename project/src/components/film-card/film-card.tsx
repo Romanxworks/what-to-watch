@@ -4,11 +4,12 @@ type FilmCardProps = {
   id: number;
   title: string;
   previewImage: string;
+  onOverHandle: (id: number)=>void;
 }
 
-function FilmCard({id, title, previewImage}: FilmCardProps): JSX.Element{
+function FilmCard({id, title, previewImage, onOverHandle}: FilmCardProps): JSX.Element{
   return(
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" onMouseOver={()=>onOverHandle(id)}>
       <div className="small-film-card__image">
         <img src={previewImage} alt={title} width="280" height="175" />
       </div>
