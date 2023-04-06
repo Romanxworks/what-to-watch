@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import {Fragment} from 'react';
 import {Film} from '../../types/film';
 
 type FilmDetailsProps = {

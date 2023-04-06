@@ -12,17 +12,16 @@ type MyListPageProps = {
 function MyListPage({myFilms, authStatus}: MyListPageProps): JSX.Element{
   const count = myFilms.length;
   const isAuth = authStatus === AuthStatus.Auth;
+
   return(
     <div className="user-page">
       <Header title='My list' count={count} authStatus={isAuth}/>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-
         <div className="catalog__films-list">
           {count > 1 ? <FilmsList films= {myFilms}/> : ''}
         </div>
       </section>
-
       <Footer />
     </div>
   );

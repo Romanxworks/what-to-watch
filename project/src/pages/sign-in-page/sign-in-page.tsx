@@ -25,7 +25,6 @@ function SingInPage({authStatus}: SingInPageProps): JSX.Element {
   return(
     <div className="user-page">
       <Header title='Sign in' authStatus={isAuth}/>
-
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={onSubmitHandle}>
           <div className="sign-in__fields">
@@ -45,7 +44,6 @@ function SingInPage({authStatus}: SingInPageProps): JSX.Element {
           </div>
         </form>
       </div>
-
       <Footer />
     </div>
   );

@@ -18,7 +18,6 @@ function AddReviewPage({films}: AddReviewPageProps): JSX.Element{
         <div className="film-card__bg">
           <img src={filmById.backgroundImage} alt={filmById.name} />
         </div>
-
         <h1 className="visually-hidden">WTW</h1>
         <Header filmName={filmById.name} authStatus={false}/>
         <FilmPoster posterSize={'small'} title={filmById.name} poster={filmById.posterImage}/>

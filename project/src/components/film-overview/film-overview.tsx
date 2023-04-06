@@ -1,6 +1,6 @@
 import {Film} from '../../types/film';
 import {getScoreDesc} from '../utils';
-
+import {Fragment} from 'react';
 type FilmOverviewProps = {
   film: Film;
 }
@@ -8,7 +8,7 @@ type FilmOverviewProps = {
 function FilmOverview({film}: FilmOverviewProps): JSX.Element{
   const {director, scoresCount, starring, rating, description} = film;
   return(
-    <>
+    <Fragment>
       <div className="film-rating">
         <div className="film-rating__score">{rating}</div>
         <p className="film-rating__meta">
@@ -16,15 +16,12 @@ function FilmOverview({film}: FilmOverviewProps): JSX.Element{
           <span className="film-rating__count">{scoresCount} ratings</span>
         </p>
       </div>
-
       <div className="film-card__text">
         <p>{description}</p>
-
         <p className="film-card__director"><strong>Director: {director}</strong></p>
-
         <p className="film-card__starring"><strong>Starring: {starring.join(', ')}</strong></p>
       </div>
-    </>
+    </Fragment>
   );
 }
 
