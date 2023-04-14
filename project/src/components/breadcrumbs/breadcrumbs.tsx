@@ -6,7 +6,6 @@ type BreadcrumbsProps = {
 
 function Breadcrumbs({filmName}: BreadcrumbsProps): JSX.Element{
   return (
-
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
