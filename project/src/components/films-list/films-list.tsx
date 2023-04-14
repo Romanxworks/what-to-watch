@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {Film} from '../../types/film';
 import FilmCard from '../film-card/film-card';
 
@@ -7,8 +6,6 @@ type FilmsListProps = {
 }
 
 function FilmsList({films}: FilmsListProps): JSX.Element{
-  const [filmId, setFilmId] = useState(0);
-  console.log(filmId);
   return(
     <div className="catalog__films-list">
       {
@@ -17,12 +14,11 @@ function FilmsList({films}: FilmsListProps): JSX.Element{
             id={film.id}
             title={film.name}
             previewImage={film.previewImage}
-            onOverHandle={setFilmId}
+            previewVideo={film.previewVideoLink}
             key={`${film.id}-${film.name}`}
           />
         ))
       }
-
     </div>
   );
 }

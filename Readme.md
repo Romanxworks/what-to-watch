@@ -10,9 +10,9 @@
 * React Router - установка маршрутов.
 * React Hooks - знакомство и применение хуков:
     * useState - состояние компонента;
-    * useRef   - ;
-    * useParams - react-router-dom;
-    * useNavigate - react-router-dom;
+    * useRef - доступ к потомку в императивном стиле. Возвращает изменяемый ref-объект('контейнер');
+    * useParams - возвращает объект пар ключ/значение динамических параметров из текущего URL-адреса(react-router-dom);
+    * useNavigate - возвращает функцию, которая позволяет программно перемещаться(react-router-dom);
 
 ----
 Учебный проект курса «[React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react)» от [HTML Academy](https://htmlacademy.ru).

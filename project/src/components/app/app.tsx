@@ -9,6 +9,7 @@ import {AppRoute, AuthStatus} from '../const';
 import ErrorPage from '../../pages/error-page/error-page';
 import PrivateRoute from '../private-route/private-route';
 import {Film} from '../../types/film';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 type AppProps = {
   films: Film[];
@@ -17,6 +18,7 @@ type AppProps = {
 function App({films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path={AppRoute.Main}>
           <Route index element={
@@ -33,7 +35,7 @@ function App({films}: AppProps): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Player}/:id`} element={<PlayerPage />}/>
+          <Route path={`${AppRoute.Player}/:id`} element={<PlayerPage films={films}/>}/>
           <Route path={AppRoute.Login} element={<SingInPage authStatus={AuthStatus.NoAuth}/>}/>
           <Route path={`${AppRoute.Film}/:id`}>
             <Route index element={<MoviePage authStatus={AuthStatus.NoAuth} films={films}/>}/>
