@@ -5,17 +5,15 @@ import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import SingInPage from '../../pages/sign-in-page/sign-in-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import MyListPage from '../../pages/my-list-page/my-list-page';
-import {AppRoute, AuthStatus} from '../const';
+import {AppRoute} from '../const';
 import ErrorPage from '../../pages/error-page/error-page';
 import PrivateRoute from '../private-route/private-route';
-import {Film} from '../../types/film';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
+import {useAppSelector} from '../../hooks';
 
-type AppProps = {
-  films: Film[];
-}
-
-function App({films}: AppProps): JSX.Element {
+function App(): JSX.Element {
+  const authStatus = useAppSelector((state) => state.userStatus);
+  const films = useAppSelector((state) => state.films);
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -23,24 +21,22 @@ function App({films}: AppProps): JSX.Element {
         <Route path={AppRoute.Main}>
           <Route index element={
             <StartPage
-              authStatus={AuthStatus.NoAuth}
-              promoFilm={films[0]}
-              films={films}
+              authStatus={authStatus}
             />
           }
           />
           <Route path={AppRoute.MyList} element={
-            <PrivateRoute authStatus={AuthStatus.NoAuth}>
-              <MyListPage myFilms={films.slice(2)} authStatus={AuthStatus.NoAuth} />
+            <PrivateRoute authStatus={authStatus}>
+              <MyListPage myFilms={films.slice(2)} authStatus={authStatus} />
             </PrivateRoute>
           }
           />
           <Route path={`${AppRoute.Player}/:id`} element={<PlayerPage films={films}/>}/>
-          <Route path={AppRoute.Login} element={<SingInPage authStatus={AuthStatus.NoAuth}/>}/>
+          <Route path={AppRoute.Login} element={<SingInPage authStatus={authStatus}/>}/>
           <Route path={`${AppRoute.Film}/:id`}>
-            <Route index element={<MoviePage authStatus={AuthStatus.NoAuth} films={films}/>}/>
+            <Route index element={<MoviePage authStatus={authStatus} films={films}/>}/>
             <Route path={AppRoute.Review} element={
-              <PrivateRoute authStatus={AuthStatus.NoAuth}>
+              <PrivateRoute authStatus={authStatus}>
                 <AddReviewPage films={films}/>
               </PrivateRoute>
             }
