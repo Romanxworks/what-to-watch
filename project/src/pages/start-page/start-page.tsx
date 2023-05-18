@@ -16,6 +16,7 @@ type StartPageProps = {
 function StartPage({authStatus}:StartPageProps): JSX.Element {
   const films = useAppSelector((state) => state.filmsByGenre);
   const promoFilm = useAppSelector((state) => state.promo);
+  const filmCount = useAppSelector((state) => state.filmCountPrev);
 
   const isAuth = authStatus === AuthStatus.Auth;
   const {id, name, backgroundImage, genre, released, posterImage} = promoFilm;
@@ -38,8 +39,8 @@ function StartPage({authStatus}:StartPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList />
-          <FilmsList films={films.slice(0,8)}/>
-          <ShowMore />
+          <FilmsList films={films.slice(0,filmCount)}/>
+          {filmCount < films.length ? <ShowMore /> : ''}
         </section>
         <Footer />
       </div>
