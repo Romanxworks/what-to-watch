@@ -19,6 +19,16 @@ export enum FilmDescType {
   Reviews = 'Reviews',
 }
 
+export enum APIRoute {
+  Questions = '/films',
+  Similar = '/similar',
+  Promo = '/promo',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export const GENRES: string[] = [
   'All genres',
   'Comedies',

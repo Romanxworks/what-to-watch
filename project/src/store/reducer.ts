@@ -1,21 +1,32 @@
 import {createReducer} from '@reduxjs/toolkit';
+import {Film, Films} from '../types/film';
+import {AuthStatus, FILMS_COUNT_PREV, GENRES} from '../components/const';
 import {
   getFilmsByGenre,
   setGenre,
   incFilmsCount,
   resetFilmsCount,
+  loadFilms,
+  requireAuthorization,
 } from './action';
-import {films} from '../mocks/films';
-import {AuthStatus, FILMS_COUNT_PREV, GENRES} from '../components/const';
 
-const initialState = {
+
+type InitialState = {
+  genre: string;
+  filmsByGenre: Films;
+  promo: Film | null;
+  authStatus: AuthStatus;
+  filmCountPrev: number;
+  films: Films;
+}
+
+const initialState: InitialState = {
   genre: GENRES[0],
-  filmsByGenre: films,
-  promo: films[0],
-  authStatus: AuthStatus.Auth,
+  filmsByGenre: [],
+  promo: null,
+  authStatus: AuthStatus.Unknown,
   filmCountPrev: FILMS_COUNT_PREV,
-  films,
-
+  films: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -29,14 +40,20 @@ const reducer = createReducer(initialState, (builder) => {
         state.filmsByGenre = state.films;
         return;
       }
-      const filteredFilms = films.filter((film) => film.genre === state.genre);
-      state.filmsByGenre = [...filteredFilms];
+      const filteredFilms = state.films.filter((film) => film.genre === state.genre);
+      state.filmsByGenre = filteredFilms;
     })
     .addCase(incFilmsCount, (state) => {
       state.filmCountPrev += FILMS_COUNT_PREV;
     })
     .addCase(resetFilmsCount, (state) => {
       state.filmCountPrev = FILMS_COUNT_PREV;
+    })
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authStatus = action.payload;
     });
 });
 
