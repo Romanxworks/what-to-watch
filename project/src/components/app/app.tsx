@@ -12,7 +12,7 @@ import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import {useAppSelector} from '../../hooks';
 
 function App(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.userStatus);
+  const authStatus = useAppSelector((state) => state.authStatus);
   const films = useAppSelector((state) => state.films);
   return (
     <BrowserRouter>

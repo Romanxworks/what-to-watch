@@ -12,7 +12,7 @@ const initialState = {
   genre: GENRES[0],
   filmsByGenre: films,
   promo: films[0],
-  userStatus: AuthStatus.Auth,
+  authStatus: AuthStatus.Auth,
   filmCountPrev: FILMS_COUNT_PREV,
   films,
 
