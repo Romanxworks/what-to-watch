@@ -6,7 +6,7 @@ import FilmPoster from '../../components/film-poster/film-poster';
 import FilmDescription from '../../components/film-description/film-description';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import {useState, Fragment} from 'react';
-import {AuthStatus, FilmDescType} from '../../components/const';
+import {AuthStatus, FilmDescType} from '../../const';
 import {Film} from '../../types/film';
 import {useParams} from 'react-router-dom';
 import ErrorPage from '../error-page/error-page';

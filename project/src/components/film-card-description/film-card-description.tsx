@@ -1,5 +1,5 @@
 import {Film} from '../../types/film';
-import {FilmDescType} from '../const';
+import {FilmDescType} from '../../const';
 import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 import FilmReviewList from '../film-review-list/film-review-list';

@@ -1,5 +1,5 @@
 import {MouseEvent} from 'react';
-import {FilmDescType} from '../const';
+import {FilmDescType} from '../../const';
 
 type FilmCardDescriptionProps = {
   typeDesc: string;

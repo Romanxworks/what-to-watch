@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../components/const';
+import {AppRoute} from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 

@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../components/const';
+import {AppRoute, AuthStatus} from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 

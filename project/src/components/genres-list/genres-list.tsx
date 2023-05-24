@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, GENRES} from '../const';
+import {AppRoute, GENRES} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmsByGenre, setGenre } from '../../store/action';
 

@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import {AppRoute} from '../const';
+import {AppRoute} from '../../const';
 import HeaderTitle from '../header-title/header-title';
 import UserBlock from '../user-block/user-block';
 

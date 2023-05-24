@@ -1,5 +1,5 @@
 import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute} from '../const';
+import {AppRoute} from '../../const';
 
 type FilmDescriptionProps = {
   authStatus: boolean;

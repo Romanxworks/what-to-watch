@@ -1,3 +1,5 @@
+import { AuthStatus } from '../const';
+
 export function getScoreDesc(rating: number): string{
   if(rating <= 3){
     return 'Bad';
@@ -16,3 +18,5 @@ export function getScoreDesc(rating: number): string{
   }
   return '';
 }
+
+export const isCheckedAuth = (authStatus: AuthStatus): boolean => authStatus === AuthStatus.Unknown;

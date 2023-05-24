@@ -5,21 +5,18 @@ import ShowMore from '../../components/show-more/show-more';
 import FilmsList from '../../components/films-list/films-list';
 import FilmDescription from '../../components/film-description/film-description';
 import FilmPoster from '../../components/film-poster/film-poster';
-import {AuthStatus} from '../../components/const';
+import {AuthStatus} from '../../const';
 import {Fragment} from 'react';
 import {useAppSelector} from '../../hooks';
-
+import {films} from '../../mocks/films';
 type StartPageProps = {
   authStatus: AuthStatus;
 }
 
 function StartPage({authStatus}:StartPageProps): JSX.Element {
-  const films = useAppSelector((state) => state.filmsByGenre);
-  const promoFilm = useAppSelector((state) => state.promo);
-  const filmCount = useAppSelector((state) => state.filmCountPrev);
-
+  const {filmsByGenre, filmCountPrev, promo} = useAppSelector((state) => state);
   const isAuth = authStatus === AuthStatus.Auth;
-  const {id, name, backgroundImage, genre, released, posterImage} = promoFilm;
+  const {id, name, backgroundImage, genre, released, posterImage} = promo ?? films[0];
   return (
     <Fragment>
       <section className="film-card">
@@ -39,8 +36,8 @@ function StartPage({authStatus}:StartPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList />
-          <FilmsList films={films.slice(0,filmCount)}/>
-          {filmCount < films.length ? <ShowMore /> : ''}
+          <FilmsList films={filmsByGenre.slice(0,filmCountPrev)}/>
+          {filmCountPrev < filmsByGenre.length ? <ShowMore /> : ''}
         </section>
         <Footer />
       </div>

@@ -1,5 +1,5 @@
 import {FormEvent, useState} from 'react';
-import {STAR_COUNT} from '../const';
+import {STAR_COUNT} from '../../const';
 import FormRatingStar from '../form-rating-star/form-rating-star';
 
 function ReviewForm(): JSX.Element{
