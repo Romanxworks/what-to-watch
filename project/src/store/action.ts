@@ -2,7 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 import {Film, Films} from '../types/film';
 import {AuthStatus} from '../const';
 
-export const setGenre = createAction<{genre:string}>('films/setGenre');
+export const setGenre = createAction<string>('films/setGenre');
 export const getFilmsByGenre = createAction('films/getFilmsByGenre');
 export const incFilmsCount = createAction('films/incFilmsCount');
 export const resetFilmsCount = createAction('films/resetFilmsCount');

@@ -7,6 +7,7 @@ function GenresList(): JSX.Element{
   const activeClass = 'catalog__genres-item--active';
   const genreType = useAppSelector((state) => state.genre);
   const dispatch = useAppDispatch();
+
   return(
     <ul className="catalog__genres-list">
       {GENRES.map((genre)=>(
@@ -15,7 +16,7 @@ function GenresList(): JSX.Element{
         >
           <Link to={AppRoute.Main} className="catalog__genres-link" onClick={(evt)=>{
             evt.preventDefault();
-            dispatch(setGenre({genre:evt.currentTarget.innerText}));
+            dispatch(setGenre(evt.currentTarget.innerText));
             dispatch(getFilmsByGenre());
           }}
           >{genre}

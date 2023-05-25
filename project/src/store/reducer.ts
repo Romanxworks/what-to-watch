@@ -39,7 +39,7 @@ const initialState: InitialState = {
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setGenre, (state, action) => {
-      state.genre = action.payload.genre;
+      state.genre = action.payload;
       state.filmCountPrev = FILMS_COUNT_PREV;
     })
     .addCase(getFilmsByGenre, (state) => {

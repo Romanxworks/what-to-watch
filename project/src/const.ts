@@ -31,15 +31,15 @@ export enum APIRoute {
 
 export const GENRES: string[] = [
   'All genres',
-  'Comedies',
+  'Comedy',
   'Crime',
-  'Documentary',
-  'Dramas',
+  'Adventure',
+  'Drama',
   'Horror',
-  'Kids & Family',
+  'Fantasy',
   'Romance',
   'Sci-Fi',
-  'Thrillers'
+  'Thriller'
 ];
 
 export const STAR_COUNT = 10;
