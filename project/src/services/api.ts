@@ -5,7 +5,9 @@ import {processErrorHandle} from './process-error-handle';
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
-
+type ErrorData = {
+  error:string;
+}
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.UNAUTHORIZED]: true,
@@ -36,7 +38,8 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError) => {
       if (error.response && shouldDisplayError(error.response)) {
-        processErrorHandle(error.response.data.error);
+        const data = error.response.data as ErrorData;
+        processErrorHandle(data.error);
       }
 
       throw error;

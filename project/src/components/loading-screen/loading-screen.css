@@ -2,7 +2,7 @@
 	text-align: center;
 	width:78px;
 	height:49px;
-	margin: auto;
+	margin: 450px auto;
 }
 
 .bubblingG span {
@@ -61,7 +61,7 @@
 	100% {
 		width: 23px;
 		height: 23px;
-		background-color:rgb(255,255,255);
+		background-color:rgba(255, 255, 255, 0.285);
 		transform: translateY(-20px);
 	}
 }
