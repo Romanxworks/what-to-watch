@@ -1,5 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 type UserBlockProps = {
   isAuth: boolean;
@@ -7,6 +9,7 @@ type UserBlockProps = {
 
 function UserBlock({isAuth}: UserBlockProps): JSX.Element{
   const userLinkText = isAuth ? 'Sign out' : 'Sign in';
+  const dispatch = useAppDispatch();
   return (
     <ul className="user-block">
       {
@@ -18,7 +21,11 @@ function UserBlock({isAuth}: UserBlockProps): JSX.Element{
           </li> : ''
       }
       <li className="user-block__item">
-        <Link className="user-block__link" to={AppRoute.Login}>{userLinkText}</Link>
+        <Link className="user-block__link" to={AppRoute.Login} onClick={()=>{
+          dispatch(logoutAction());
+        }}
+        >{userLinkText}
+        </Link>
       </li>
     </ul>
   );
