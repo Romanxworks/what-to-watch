@@ -7,7 +7,6 @@ import FilmDescription from '../../components/film-description/film-description'
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import {useState, Fragment, useEffect} from 'react';
 import {AuthStatus, FilmDescType} from '../../const';
-// import {Film} from '../../types/film';
 import {useParams} from 'react-router-dom';
 import ErrorPage from '../error-page/error-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
