@@ -3,10 +3,12 @@ import {useNavigate} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
 
 function SingInPage(): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({email:'', password: ''});
   const authStatus = useAppSelector((state)=>state.authStatus);
   const isAuth = authStatus === AuthStatus.Auth;
@@ -17,8 +19,12 @@ function SingInPage(): JSX.Element {
 
   function onSubmitHandle(evt: FormEvent<HTMLFormElement>){
     evt.preventDefault();
-    setFormData({email:'', password: ''});
-    return navigate(AppRoute.Main);
+    if(formData.email !== null && formData.password !== null){
+      dispatch(loginAction({...formData, login: formData.email}));
+      setFormData({email:'', password: ''});
+      return navigate(AppRoute.Main);
+    }
+
   }
   return(
     <div className="user-page">
