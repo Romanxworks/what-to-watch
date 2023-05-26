@@ -37,7 +37,7 @@ function FilmDescription({authStatus, title, genre, year, id}:FilmDescriptionPro
           <span>My list</span>
           {authStatus ? <span className="film-card__count">9</span> : null}
         </button>
-        {authStatus ? <Link to={`${AppRoute.Film}${id}/${AppRoute.Review}`} className="btn film-card__button">Add review</Link> : null}
+        {authStatus ? <Link to={`${AppRoute.Film}/${id}/${AppRoute.Review}`} className="btn film-card__button">Add review</Link> : null}
       </div>
     </div>
   );

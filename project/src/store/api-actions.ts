@@ -7,8 +7,9 @@ import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {saveToken, dropToken} from '../services/token';
 import {Film, Films} from '../types/film.js';
 
-import {loadFilms, requireAuthorization, loadPromoFilm, setError, loadSingleFilm, setDataLoadedStatus, loadSimilarFilms} from './action';
+import {loadFilms, requireAuthorization, loadPromoFilm, setError, loadSingleFilm, setDataLoadedStatus, loadSimilarFilms, loadReviews} from './action';
 import {store} from './';
+import { Reviews } from '../types/review.js';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -44,6 +45,20 @@ export const fetchSimilarFilmsAction = createAsyncThunk<void, number, {
     const {data} = await api.get<Films>(`${APIRoute.Films}/${id}${APIRoute.Similar}`);
     dispatch(setDataLoadedStatus(true));
     dispatch(loadSimilarFilms(data));
+    dispatch(setDataLoadedStatus(false));
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchReviews',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Reviews>(`${APIRoute.Comments}/${id}`);
+    dispatch(setDataLoadedStatus(true));
+    dispatch(loadReviews(data));
     dispatch(setDataLoadedStatus(false));
   },
 );

@@ -28,6 +28,7 @@ function MoviePage(): JSX.Element{
 
   const {authStatus, filmById, similarFilms} = useAppSelector((state)=>state);
   const isAuth = authStatus === AuthStatus.Auth;
+  const similarFilmsList = similarFilms.filter((film)=>film.id !== idToQuery);
   const {name, backgroundImage, genre, released, posterImage} = filmById ?? films[0];
 
   return filmById ?
@@ -57,7 +58,7 @@ function MoviePage(): JSX.Element{
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <FilmsList films={similarFilms.slice(0,4)}/>
+            <FilmsList films={similarFilmsList}/>
           </section>
           <Footer />
         </div>

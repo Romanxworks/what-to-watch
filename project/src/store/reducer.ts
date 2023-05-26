@@ -13,7 +13,9 @@ import {
   setDataLoadedStatus,
   loadSingleFilm,
   loadSimilarFilms,
+  loadReviews,
 } from './action';
+import {Reviews} from '../types/review';
 
 
 type InitialState = {
@@ -25,6 +27,7 @@ type InitialState = {
   filmById: Film | null;
   films: Films;
   similarFilms: Films;
+  reviews: Reviews;
   error: null | string;
   isDataLoaded: boolean;
 }
@@ -38,6 +41,7 @@ const initialState: InitialState = {
   filmById: null,
   films: [],
   similarFilms: [],
+  reviews: [],
   error: null,
   isDataLoaded: false,
 };
@@ -74,6 +78,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadSingleFilm, (state, action) => {
       state.filmById = action.payload;
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.reviews = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
