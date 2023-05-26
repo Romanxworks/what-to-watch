@@ -7,7 +7,7 @@ import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {saveToken, dropToken} from '../services/token';
 import {Film, Films} from '../types/film.js';
 
-import {loadFilms, requireAuthorization, loadPromoFilm, setError, loadSingleFilm, setDataLoadedStatus} from './action';
+import {loadFilms, requireAuthorization, loadPromoFilm, setError, loadSingleFilm, setDataLoadedStatus, loadSimilarFilms} from './action';
 import {store} from './';
 
 export const clearErrorAction = createAsyncThunk(
@@ -30,6 +30,20 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<Films>(APIRoute.Films);
     dispatch(setDataLoadedStatus(true));
     dispatch(loadFilms(data));
+    dispatch(setDataLoadedStatus(false));
+  },
+);
+
+export const fetchSimilarFilmsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchSimilarFilms',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Films>(`${APIRoute.Films}/${id}${APIRoute.Similar}`);
+    dispatch(setDataLoadedStatus(true));
+    dispatch(loadSimilarFilms(data));
     dispatch(setDataLoadedStatus(false));
   },
 );

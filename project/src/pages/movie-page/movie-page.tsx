@@ -11,7 +11,7 @@ import {useParams} from 'react-router-dom';
 import ErrorPage from '../error-page/error-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {films} from '../../mocks/films';
-import { fetchSingleFilmAction } from '../../store/api-actions';
+import { fetchSimilarFilmsAction, fetchSingleFilmAction } from '../../store/api-actions';
 
 function MoviePage(): JSX.Element{
   const {id} = useParams();
@@ -22,10 +22,11 @@ function MoviePage(): JSX.Element{
   useEffect(()=>{
     if(idToQuery){
       dispatch(fetchSingleFilmAction(idToQuery));
+      dispatch(fetchSimilarFilmsAction(idToQuery));
     }
   },[idToQuery]);
 
-  const {authStatus, filmById} = useAppSelector((state)=>state);
+  const {authStatus, filmById, similarFilms} = useAppSelector((state)=>state);
   const isAuth = authStatus === AuthStatus.Auth;
   const {name, backgroundImage, genre, released, posterImage} = filmById ?? films[0];
 
@@ -56,7 +57,7 @@ function MoviePage(): JSX.Element{
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <FilmsList films={films.slice(5, 9)}/>
+            <FilmsList films={similarFilms.slice(0,4)}/>
           </section>
           <Footer />
         </div>

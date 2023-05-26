@@ -12,6 +12,7 @@ import {
   setError,
   setDataLoadedStatus,
   loadSingleFilm,
+  loadSimilarFilms,
 } from './action';
 
 
@@ -23,6 +24,7 @@ type InitialState = {
   filmCountPrev: number;
   filmById: Film | null;
   films: Films;
+  similarFilms: Films;
   error: null | string;
   isDataLoaded: boolean;
 }
@@ -35,6 +37,7 @@ const initialState: InitialState = {
   filmCountPrev: FILMS_COUNT_PREV,
   filmById: null,
   films: [],
+  similarFilms: [],
   error: null,
   isDataLoaded: false,
 };
@@ -65,6 +68,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadPromoFilm, (state, action) => {
       state.promo = action.payload;
+    })
+    .addCase(loadSimilarFilms, (state, action) => {
+      state.similarFilms = action.payload;
     })
     .addCase(loadSingleFilm, (state, action) => {
       state.filmById = action.payload;
