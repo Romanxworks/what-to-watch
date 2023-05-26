@@ -9,6 +9,7 @@ export const resetFilmsCount = createAction('films/resetFilmsCount');
 
 export const loadFilms = createAction<Films>('data/loadFilms');
 export const loadPromoFilm = createAction<Film>('data/loadPromoFilm');
+export const loadSingleFilm = createAction<Film>('data/loadSingleFilm');
 export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
 
 export const requireAuthorization = createAction<AuthStatus>('user/requireAuthorization');

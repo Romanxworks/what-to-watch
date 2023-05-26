@@ -11,6 +11,7 @@ import {
   loadPromoFilm,
   setError,
   setDataLoadedStatus,
+  loadSingleFilm,
 } from './action';
 
 
@@ -20,6 +21,7 @@ type InitialState = {
   promo: Film | null;
   authStatus: AuthStatus;
   filmCountPrev: number;
+  filmById: Film | null;
   films: Films;
   error: null | string;
   isDataLoaded: boolean;
@@ -31,6 +33,7 @@ const initialState: InitialState = {
   promo: null,
   authStatus: AuthStatus.Unknown,
   filmCountPrev: FILMS_COUNT_PREV,
+  filmById: null,
   films: [],
   error: null,
   isDataLoaded: false,
@@ -62,6 +65,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadPromoFilm, (state, action) => {
       state.promo = action.payload;
+    })
+    .addCase(loadSingleFilm, (state, action) => {
+      state.filmById = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

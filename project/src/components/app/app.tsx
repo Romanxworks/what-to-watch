@@ -14,7 +14,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {isCheckedAuth} from '../utils';
 
 function App(): JSX.Element {
-  const {authStatus, isDataLoaded, films, } = useAppSelector((state) => state);
+  const {authStatus, isDataLoaded, films} = useAppSelector((state) => state);
 
   if (isCheckedAuth(authStatus) || isDataLoaded) {
     return (
@@ -27,23 +27,21 @@ function App(): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main}>
           <Route index element={
-            <StartPage
-              authStatus={authStatus}
-            />
+            <StartPage />
           }
           />
           <Route path={AppRoute.MyList} element={
-            <PrivateRoute authStatus={authStatus}>
-              <MyListPage myFilms={films.slice(2)} authStatus={authStatus} />
+            <PrivateRoute>
+              <MyListPage myFilms={films.slice(2)}/>
             </PrivateRoute>
           }
           />
           <Route path={`${AppRoute.Player}/:id`} element={<PlayerPage films={films}/>}/>
-          <Route path={AppRoute.Login} element={<SingInPage authStatus={authStatus}/>}/>
+          <Route path={AppRoute.Login} element={<SingInPage />}/>
           <Route path={`${AppRoute.Film}/:id`}>
-            <Route index element={<MoviePage authStatus={authStatus} films={films}/>}/>
+            <Route index element={<MoviePage />}/>
             <Route path={AppRoute.Review} element={
-              <PrivateRoute authStatus={authStatus}>
+              <PrivateRoute>
                 <AddReviewPage films={films}/>
               </PrivateRoute>
             }

@@ -7,7 +7,7 @@ import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {saveToken, dropToken} from '../services/token';
 import {Film, Films} from '../types/film.js';
 
-import {loadFilms, requireAuthorization, loadPromoFilm, setError} from './action';
+import {loadFilms, requireAuthorization, loadPromoFilm, setError, loadSingleFilm} from './action';
 import {store} from './';
 
 export const clearErrorAction = createAsyncThunk(
@@ -41,6 +41,18 @@ export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
     dispatch(loadPromoFilm(data));
+  },
+);
+
+export const fetchSingleFilmAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchSingleFilms',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Film>(`${APIRoute.Films}/${id}`);
+    dispatch(loadSingleFilm(data));
   },
 );
 

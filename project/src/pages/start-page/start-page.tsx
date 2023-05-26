@@ -9,12 +9,9 @@ import {AuthStatus} from '../../const';
 import {Fragment} from 'react';
 import {useAppSelector} from '../../hooks';
 import {films} from '../../mocks/films';
-type StartPageProps = {
-  authStatus: AuthStatus;
-}
 
-function StartPage({authStatus}:StartPageProps): JSX.Element {
-  const {filmsByGenre, filmCountPrev, promo} = useAppSelector((state) => state);
+function StartPage(): JSX.Element {
+  const {filmsByGenre, filmCountPrev, promo, authStatus} = useAppSelector((state) => state);
   const isAuth = authStatus === AuthStatus.Auth;
   const {id, name, backgroundImage, genre, released, posterImage} = promo ?? films[0];
   return (

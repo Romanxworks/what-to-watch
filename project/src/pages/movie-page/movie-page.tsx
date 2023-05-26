@@ -5,23 +5,30 @@ import FilmCardNav from '../../components/film-card-nav/film-card-nav';
 import FilmPoster from '../../components/film-poster/film-poster';
 import FilmDescription from '../../components/film-description/film-description';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
-import {useState, Fragment} from 'react';
+import {useState, Fragment, useEffect} from 'react';
 import {AuthStatus, FilmDescType} from '../../const';
-import {Film} from '../../types/film';
+// import {Film} from '../../types/film';
 import {useParams} from 'react-router-dom';
 import ErrorPage from '../error-page/error-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {films} from '../../mocks/films';
+import { fetchSingleFilmAction } from '../../store/api-actions';
 
-type MoviePageProps = {
-  authStatus: AuthStatus;
-  films: Film[];
-}
-
-function MoviePage({authStatus, films}: MoviePageProps): JSX.Element{
+function MoviePage(): JSX.Element{
   const {id} = useParams();
+  const idToQuery = id ? +id : null;
+  const dispatch = useAppDispatch();
   const [filmDescType, setFilmDescType] = useState(FilmDescType.Overview);
+
+  useEffect(()=>{
+    if(idToQuery){
+      dispatch(fetchSingleFilmAction(idToQuery));
+    }
+  },[idToQuery]);
+
+  const {authStatus, filmById} = useAppSelector((state)=>state);
   const isAuth = authStatus === AuthStatus.Auth;
-  const filmById = films.find((film) => film.id === Number(id)) as Film;
-  const {name, backgroundImage, genre, released, posterImage} = filmById;
+  const {name, backgroundImage, genre, released, posterImage} = filmById ?? films[0];
 
   return filmById ?
     (
@@ -42,7 +49,7 @@ function MoviePage({authStatus, films}: MoviePageProps): JSX.Element{
               <FilmPoster posterSize={'big'} title={name} poster={posterImage}/>
               <div className="film-card__desc">
                 <FilmCardNav filmTypeChange={setFilmDescType} typeDesc={filmDescType}/>
-                <FilmCardDescription typeDesc={filmDescType} film={filmById}/>
+                <FilmCardDescription typeDesc={filmDescType} film={filmById ?? films[0]}/>
               </div>
             </div>
           </div>

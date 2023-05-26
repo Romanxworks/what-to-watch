@@ -3,14 +3,15 @@ import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import {Film} from '../../types/film';
+import { useAppSelector } from '../../hooks';
 
 type MyListPageProps = {
   myFilms: Film[];
-  authStatus: AuthStatus;
 }
 
-function MyListPage({myFilms, authStatus}: MyListPageProps): JSX.Element{
+function MyListPage({myFilms}: MyListPageProps): JSX.Element{
   const count = myFilms.length;
+  const authStatus = useAppSelector((state)=>state.authStatus);
   const isAuth = authStatus === AuthStatus.Auth;
 
   return(

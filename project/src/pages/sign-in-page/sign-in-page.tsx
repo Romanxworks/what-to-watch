@@ -3,14 +3,12 @@ import {useNavigate} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { useAppSelector } from '../../hooks';
 
-type SingInPageProps = {
-  authStatus: AuthStatus;
-}
-
-function SingInPage({authStatus}: SingInPageProps): JSX.Element {
+function SingInPage(): JSX.Element {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({email:'', password: ''});
+  const authStatus = useAppSelector((state)=>state.authStatus);
   const isAuth = authStatus === AuthStatus.Auth;
 
   function onChangeFormDataHandle({target}: ChangeEvent<HTMLInputElement>){
