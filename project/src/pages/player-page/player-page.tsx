@@ -1,16 +1,26 @@
 import {useNavigate, useParams} from 'react-router-dom';
-import {Film} from '../../types/film';
 import {useEffect, useRef, useState} from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchSingleFilmAction } from '../../store/api-actions';
 
-type PlayerPageProps = {
-  films: Film[];
-}
 
-function PlayerPage({films}:PlayerPageProps): JSX.Element{
+function PlayerPage(): JSX.Element{
   const {id} = useParams();
   const navigate = useNavigate();
-  const filmById = films.find((film) => film.id === Number(id)) as Film;
+
+  const idToQuery = id ? +id : null;
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    if(idToQuery){
+      dispatch(fetchSingleFilmAction(idToQuery));
+    }
+  },[idToQuery, dispatch]);
+
+  const filmById = useAppSelector((state)=>state.filmById);
+
   const {videoLink, previewImage} = filmById;
+
   const [isLoading, setIsLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState({value:0, runTime:0});

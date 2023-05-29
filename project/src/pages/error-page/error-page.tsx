@@ -6,7 +6,7 @@ import Header from '../../components/header/header';
 function ErrorPage(): JSX.Element {
   return(
     <div className="user-page">
-      <Header title='Sign in' authStatus={false}/>
+      <Header />
       <div className="sign-in user-page__content">
         <h1 className="sign-in__message">Упсс... Страница не существует.<br/>
           <Link to={AppRoute.Main}> На главную </Link>

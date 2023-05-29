@@ -4,10 +4,11 @@ import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import ErrorMessage from './components/error-message/error-message';
-import {checkAuthAction, fetchFilmsAction, fetchPromoFilmAction} from './store/api-actions';
+import {checkAuthAction, fetchFavoriteFilmsAction, fetchFilmsAction, fetchPromoFilmAction} from './store/api-actions';
 
 store.dispatch(fetchFilmsAction());
 store.dispatch(fetchPromoFilmAction());
+store.dispatch(fetchFavoriteFilmsAction());
 store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(

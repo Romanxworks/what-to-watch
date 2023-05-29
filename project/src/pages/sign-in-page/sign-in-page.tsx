@@ -1,17 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../const';
+import {AppRoute} from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch} from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 
 function SingInPage(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({email:'', password: ''});
-  const authStatus = useAppSelector((state)=>state.authStatus);
-  const isAuth = authStatus === AuthStatus.Auth;
 
   function onChangeFormDataHandle({target}: ChangeEvent<HTMLInputElement>){
     setFormData({...formData, [target.type]:target.value});
@@ -28,7 +26,7 @@ function SingInPage(): JSX.Element {
   }
   return(
     <div className="user-page">
-      <Header title='Sign in' authStatus={isAuth}/>
+      <Header title='Sign in' />
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={onSubmitHandle}>
           <div className="sign-in__fields">

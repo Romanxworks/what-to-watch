@@ -8,24 +8,22 @@ import FilmPoster from '../../components/film-poster/film-poster';
 import {AuthStatus} from '../../const';
 import {Fragment} from 'react';
 import {useAppSelector} from '../../hooks';
-import {films} from '../../mocks/films';
 
 function StartPage(): JSX.Element {
   const {filmsByGenre, filmCountPrev, promo, authStatus} = useAppSelector((state) => state);
   const isAuth = authStatus === AuthStatus.Auth;
-  const {id, name, backgroundImage, genre, released, posterImage} = promo ?? films[0];
   return (
     <Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={isAuth ? backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? name : 'gues'} />
+          <img src={isAuth ? promo.backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? promo.name : 'gues'} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
-        <Header authStatus={isAuth}/>
+        <Header />
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <FilmPoster poster={posterImage} title={name}/>
-            <FilmDescription authStatus={isAuth} title={name} genre={genre} year={released} id={id}/>
+            <FilmPoster poster={promo.posterImage} title={promo.name}/>
+            <FilmDescription authStatus={isAuth} film={promo}/>
           </div>
         </div>
       </section>

@@ -9,6 +9,7 @@ export const incFilmsCount = createAction('films/incFilmsCount');
 export const resetFilmsCount = createAction('films/resetFilmsCount');
 
 export const loadFilms = createAction<Films>('data/loadFilms');
+export const loadFavoriteFilms = createAction<Films>('data/loadFavoriteFilms');
 export const loadSimilarFilms = createAction<Films>('data/loadSimilarFilms');
 export const loadPromoFilm = createAction<Film>('data/loadPromoFilm');
 export const loadSingleFilm = createAction<Film>('data/loadSingleFilm');

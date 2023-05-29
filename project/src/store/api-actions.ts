@@ -7,7 +7,7 @@ import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {saveToken, dropToken} from '../services/token';
 import {Film, Films} from '../types/film.js';
 
-import {loadFilms, requireAuthorization, loadPromoFilm, setError, loadSingleFilm, setDataLoadedStatus, loadSimilarFilms, loadReviews} from './action';
+import {loadFilms, requireAuthorization, loadPromoFilm, setError, loadSingleFilm, setDataLoadedStatus, loadSimilarFilms, loadReviews, loadFavoriteFilms} from './action';
 import {store} from './';
 import { Reviews } from '../types/review.js';
 
@@ -31,6 +31,20 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<Films>(APIRoute.Films);
     dispatch(setDataLoadedStatus(true));
     dispatch(loadFilms(data));
+    dispatch(setDataLoadedStatus(false));
+  },
+);
+
+export const fetchFavoriteFilmsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavoriteFilms',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Films>(APIRoute.Favorite);
+    dispatch(setDataLoadedStatus(true));
+    dispatch(loadFavoriteFilms(data));
     dispatch(setDataLoadedStatus(false));
   },
 );

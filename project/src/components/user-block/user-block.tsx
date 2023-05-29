@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
@@ -10,11 +10,12 @@ type UserBlockProps = {
 function UserBlock({isAuth}: UserBlockProps): JSX.Element{
   const userLinkText = isAuth ? 'Sign out' : 'Sign in';
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   return (
     <ul className="user-block">
       {
         isAuth ?
-          <li className="user-block__item">
+          <li className="user-block__item" onClick={()=>navigate(AppRoute.MyList)}>
             <div className="user-block__avatar">
               <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
             </div>

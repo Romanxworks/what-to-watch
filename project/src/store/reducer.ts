@@ -1,5 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {Film, Films} from '../types/film';
+import { films } from '../mocks/films';
 import {AuthStatus, FILMS_COUNT_PREV, GENRES} from '../const';
 import {
   getFilmsByGenre,
@@ -14,6 +15,7 @@ import {
   loadSingleFilm,
   loadSimilarFilms,
   loadReviews,
+  loadFavoriteFilms,
 } from './action';
 import {Reviews} from '../types/review';
 
@@ -21,13 +23,15 @@ import {Reviews} from '../types/review';
 type InitialState = {
   genre: string;
   filmsByGenre: Films;
-  promo: Film | null;
+  promo: Film;
   authStatus: AuthStatus;
   filmCountPrev: number;
-  filmById: Film | null;
+  filmById: Film;
   films: Films;
   similarFilms: Films;
   reviews: Reviews;
+  favoriteFilms: Films;
+  favoriteCount: number;
   error: null | string;
   isDataLoaded: boolean;
 }
@@ -35,13 +39,15 @@ type InitialState = {
 const initialState: InitialState = {
   genre: GENRES[0],
   filmsByGenre: [],
-  promo: null,
+  promo: films[0],
   authStatus: AuthStatus.Unknown,
   filmCountPrev: FILMS_COUNT_PREV,
-  filmById: null,
+  filmById: films[0],
   films: [],
   similarFilms: [],
   reviews: [],
+  favoriteFilms: [],
+  favoriteCount: 0,
   error: null,
   isDataLoaded: false,
 };
@@ -75,6 +81,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadSimilarFilms, (state, action) => {
       state.similarFilms = action.payload;
+    })
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
+      state.favoriteCount = state.favoriteFilms.length;
     })
     .addCase(loadSingleFilm, (state, action) => {
       state.filmById = action.payload;

@@ -1,17 +1,19 @@
 import {Link} from 'react-router-dom';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 import HeaderTitle from '../header-title/header-title';
 import UserBlock from '../user-block/user-block';
+import { useAppSelector } from '../../hooks';
 
 type HeaderProps = {
   title?: string;
   filmName?: string;
   count?: number;
-  authStatus: boolean;
 }
 
-function Header({title, filmName, count, authStatus}: HeaderProps): JSX.Element{
+function Header({title, filmName, count}: HeaderProps): JSX.Element{
+  const {authStatus} = useAppSelector((state)=>state);
+  const isAuth = authStatus === AuthStatus.Auth;
   return(
     <header className="page-header user-page__head film-card__head">
       <div className="logo">
@@ -23,7 +25,7 @@ function Header({title, filmName, count, authStatus}: HeaderProps): JSX.Element{
       </div>
       {title && <HeaderTitle title={title} count={count}/>}
       {filmName && <Breadcrumbs filmName={filmName}/>}
-      <UserBlock isAuth={authStatus} />
+      <UserBlock isAuth={isAuth} />
     </header>
   );
 }

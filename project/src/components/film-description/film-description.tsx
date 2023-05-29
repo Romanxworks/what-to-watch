@@ -1,27 +1,36 @@
 import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import { useAppSelector } from '../../hooks';
+import {Film} from '../../types/film';
+import { useState } from 'react';
 
 type FilmDescriptionProps = {
   authStatus: boolean;
-  title: string;
-  genre: string;
-  year: number;
-  id: number;
+  film: Film;
 }
 
-function FilmDescription({authStatus, title, genre, year, id}:FilmDescriptionProps): JSX.Element{
+function FilmDescription({authStatus, film}:FilmDescriptionProps): JSX.Element{
+  const {isFavorite, name, genre, released, id} = film;
+  const favoriteCount = useAppSelector((state)=>state.favoriteCount);
+  const [favoriteState, setFavoriteState] = useState(isFavorite);
+  function onFavoriteClickHandler(){
+    if(!authStatus){
+      navigate(AppRoute.Login);
+    }
+    setFavoriteState(!favoriteState);
+  }
   const navigate = useNavigate();
   return (
     <div className="film-card__desc">
-      <h2 className="film-card__title">{title}</h2>
+      <h2 className="film-card__title">{name}</h2>
       <p className="film-card__meta">
         <span className="film-card__genre">{genre}</span>
-        <span className="film-card__year">{year}</span>
+        <span className="film-card__year">{released}</span>
       </p>
 
       <div className="film-card__buttons">
         <button className="btn btn--play film-card__button" type="button"
-          onClick={()=> navigate(`${AppRoute.Player}/${id}`)}
+          onClick={()=> navigate(`${AppRoute.Player}/${id ?? ''}`)}
         >
           <svg viewBox="0 0 19 19" width="19" height="19">
             <use xlinkHref="#play-s"></use>
@@ -29,15 +38,19 @@ function FilmDescription({authStatus, title, genre, year, id}:FilmDescriptionPro
           <span>Play</span>
         </button>
         <button className="btn btn--list film-card__button" type="button"
-          onClick={()=>navigate(authStatus ? AppRoute.MyList : AppRoute.Login)}
+          onClick={onFavoriteClickHandler}
         >
-          <svg viewBox="0 0 19 20" width="19" height="20">
-            <use xlinkHref="#add"></use>
-          </svg>
+          { favoriteState ?
+            <svg viewBox="0 0 18 14" width="18" height="14">
+              <use xlinkHref="#in-list"></use>
+            </svg> :
+            <svg viewBox="0 0 19 20" width="19" height="20">
+              <use xlinkHref="#add"></use>
+            </svg>}
           <span>My list</span>
-          {authStatus ? <span className="film-card__count">9</span> : null}
+          {authStatus ? <span className="film-card__count">{favoriteCount}</span> : null}
         </button>
-        {authStatus ? <Link to={`${AppRoute.Film}/${id}/${AppRoute.Review}`} className="btn film-card__button">Add review</Link> : null}
+        {authStatus ? <Link to={`${AppRoute.Film}/${id ?? ''}/${AppRoute.Review}`} className="btn film-card__button">Add review</Link> : null}
       </div>
     </div>
   );

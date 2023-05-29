@@ -14,7 +14,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {isCheckedAuth} from '../utils';
 
 function App(): JSX.Element {
-  const {authStatus, isDataLoaded, films} = useAppSelector((state) => state);
+  const {authStatus, isDataLoaded} = useAppSelector((state) => state);
 
   if (isCheckedAuth(authStatus) || isDataLoaded) {
     return (
@@ -32,17 +32,17 @@ function App(): JSX.Element {
           />
           <Route path={AppRoute.MyList} element={
             <PrivateRoute>
-              <MyListPage myFilms={films.slice(2)}/>
+              <MyListPage />
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Player}/:id`} element={<PlayerPage films={films}/>}/>
+          <Route path={`${AppRoute.Player}/:id`} element={<PlayerPage />}/>
           <Route path={AppRoute.Login} element={<SingInPage />}/>
           <Route path={`${AppRoute.Film}/:id`}>
             <Route index element={<MoviePage />}/>
             <Route path={AppRoute.Review} element={
               <PrivateRoute>
-                <AddReviewPage films={films}/>
+                <AddReviewPage />
               </PrivateRoute>
             }
             />
