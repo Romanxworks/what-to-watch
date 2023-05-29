@@ -44,4 +44,4 @@ export const GENRES: string[] = [
 
 export const STAR_COUNT = 10;
 export const FILMS_COUNT_PREV = 8;
-export const TIMEOUT_SHOW_ERROR = 5000;
+export const TIMEOUT_SHOW_ERROR = 2000;

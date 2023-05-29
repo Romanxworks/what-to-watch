@@ -9,7 +9,8 @@ import {Film, Films} from '../types/film.js';
 
 import {loadFilms, requireAuthorization, loadPromoFilm, setError, loadSingleFilm, setDataLoadedStatus, loadSimilarFilms, loadReviews, loadFavoriteFilms} from './action';
 import {store} from './';
-import { Reviews } from '../types/review.js';
+import { Review, Reviews } from '../types/review.js';
+import { ReviewData } from '../types/review-data.js';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -144,5 +145,16 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthStatus.NoAuth));
+  },
+);
+
+export const addReviewAction = createAsyncThunk<void, ReviewData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/addReview',
+  async ({id,comment, rating}, {dispatch, extra: api}) => {
+    await api.post<Review>(`${APIRoute.Comments}/${id}`, {rating, comment});
   },
 );

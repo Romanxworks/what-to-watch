@@ -6,14 +6,13 @@ import { useAppSelector } from '../../hooks';
 
 function MyListPage(): JSX.Element{
   const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
-  const count = favoriteFilms.length;
   return(
     <div className="user-page">
-      <Header title='My list' count={count}/>
+      <Header title='My list'/>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <div className="catalog__films-list">
-          {count > 1 ? <FilmsList films= {favoriteFilms}/> : ''}
+          {favoriteFilms.length > 0 ? <FilmsList films= {favoriteFilms}/> : ''}
         </div>
       </section>
       <Footer />

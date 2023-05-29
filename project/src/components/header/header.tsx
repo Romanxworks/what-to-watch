@@ -8,11 +8,10 @@ import { useAppSelector } from '../../hooks';
 type HeaderProps = {
   title?: string;
   filmName?: string;
-  count?: number;
 }
 
-function Header({title, filmName, count}: HeaderProps): JSX.Element{
-  const {authStatus} = useAppSelector((state)=>state);
+function Header({title, filmName}: HeaderProps): JSX.Element{
+  const {authStatus, favoriteCount} = useAppSelector((state)=>state);
   const isAuth = authStatus === AuthStatus.Auth;
   return(
     <header className="page-header user-page__head film-card__head">
@@ -23,7 +22,7 @@ function Header({title, filmName, count}: HeaderProps): JSX.Element{
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
-      {title && <HeaderTitle title={title} count={count}/>}
+      {title && <HeaderTitle title={title} count={favoriteCount}/>}
       {filmName && <Breadcrumbs filmName={filmName}/>}
       <UserBlock isAuth={isAuth} />
     </header>

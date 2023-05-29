@@ -17,7 +17,7 @@ function AddReviewPage(): JSX.Element{
     }
   },[idToQuery, dispatch]);
 
-  const {name, backgroundImage, posterImage} = useAppSelector((state)=>state.filmById);
+  const {id: filmId, name, backgroundImage, posterImage} = useAppSelector((state)=>state.filmById);
 
   return(
     <section className="film-card film-card--full">
@@ -29,7 +29,7 @@ function AddReviewPage(): JSX.Element{
         <Header filmName={name} />
         <FilmPoster posterSize={'small'} title={name} poster={posterImage}/>
       </div>
-      <ReviewForm />
+      <ReviewForm id={filmId} />
     </section>
   );
 }

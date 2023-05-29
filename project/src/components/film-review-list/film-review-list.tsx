@@ -11,7 +11,7 @@ function FilmReviewList({id}: FilmReviewListProps): JSX.Element{
   const dispatch = useAppDispatch();
   useEffect(()=>{
     dispatch(fetchReviewsAction(id));
-  },[id]);
+  },[id,dispatch]);
   const reviews = useAppSelector((state)=>state.reviews);
 
   return(
