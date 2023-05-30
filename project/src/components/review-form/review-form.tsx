@@ -1,7 +1,6 @@
 import {FormEvent, useState} from 'react';
 import {STAR_COUNT} from '../../const';
 import FormRatingStar from '../form-rating-star/form-rating-star';
-// import ErrorMessage from '../error-message/error-message';
 import { ReviewData } from '../../types/review-data';
 import { processErrorHandle } from '../../services/process-error-handle';
 import { addReviewAction } from '../../store/api-actions';
@@ -60,7 +59,6 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element{
             <button className="add-review__btn" type="submit" disabled={isDisabled}>Post</button>
           </div>
         </div>
-        {/* <ErrorMessage message={'Error'}/> */}
       </form>
     </div>
   );
