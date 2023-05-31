@@ -5,33 +5,30 @@ import ShowMore from '../../components/show-more/show-more';
 import FilmsList from '../../components/films-list/films-list';
 import FilmDescription from '../../components/film-description/film-description';
 import FilmPoster from '../../components/film-poster/film-poster';
-import {AuthStatus} from '../../components/const';
-import {Fragment} from 'react';
-import {useAppSelector} from '../../hooks';
+import {AuthStatus} from '../../const';
+import {Fragment, useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import { fetchPromoFilmAction } from '../../store/api-actions';
 
-type StartPageProps = {
-  authStatus: AuthStatus;
-}
-
-function StartPage({authStatus}:StartPageProps): JSX.Element {
-  const films = useAppSelector((state) => state.filmsByGenre);
-  const promoFilm = useAppSelector((state) => state.promo);
-  const filmCount = useAppSelector((state) => state.filmCountPrev);
-
+function StartPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  }, [dispatch]);
+  const {filmsByGenre, filmCountPrev, promo, authStatus} = useAppSelector((state) => state);
   const isAuth = authStatus === AuthStatus.Auth;
-  const {id, name, backgroundImage, genre, released, posterImage} = promoFilm;
   return (
     <Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={isAuth ? backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? name : 'gues'} />
+          <img src={isAuth ? promo.backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? promo.name : 'gues'} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
-        <Header authStatus={isAuth}/>
+        <Header />
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <FilmPoster poster={posterImage} title={name}/>
-            <FilmDescription authStatus={isAuth} title={name} genre={genre} year={released} id={id}/>
+            <FilmPoster poster={promo.posterImage} title={promo.name}/>
+            <FilmDescription authStatus={isAuth} film={promo} isPromo/>
           </div>
         </div>
       </section>
@@ -39,8 +36,8 @@ function StartPage({authStatus}:StartPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList />
-          <FilmsList films={films.slice(0,filmCount)}/>
-          {filmCount < films.length ? <ShowMore /> : ''}
+          <FilmsList films={filmsByGenre.slice(0,filmCountPrev)}/>
+          {filmCountPrev < filmsByGenre.length ? <ShowMore /> : ''}
         </section>
         <Footer />
       </div>

@@ -1,17 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../components/const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { useAppDispatch} from '../../hooks';
+import { loginAction } from '../../store/api-actions';
 
-type SingInPageProps = {
-  authStatus: AuthStatus;
-}
-
-function SingInPage({authStatus}: SingInPageProps): JSX.Element {
-  const navigate = useNavigate();
+function SingInPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({email:'', password: ''});
-  const isAuth = authStatus === AuthStatus.Auth;
 
   function onChangeFormDataHandle({target}: ChangeEvent<HTMLInputElement>){
     setFormData({...formData, [target.type]:target.value});
@@ -19,12 +14,15 @@ function SingInPage({authStatus}: SingInPageProps): JSX.Element {
 
   function onSubmitHandle(evt: FormEvent<HTMLFormElement>){
     evt.preventDefault();
-    setFormData({email:'', password: ''});
-    return navigate(AppRoute.Main);
+    if(formData.email !== null && formData.password !== null){
+      dispatch(loginAction({...formData, login: formData.email}));
+      setFormData({email:'', password: ''});
+    }
+
   }
   return(
     <div className="user-page">
-      <Header title='Sign in' authStatus={isAuth}/>
+      <Header title='My list' />
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={onSubmitHandle}>
           <div className="sign-in__fields">

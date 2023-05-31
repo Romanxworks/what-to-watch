@@ -1,9 +1,8 @@
 import {Film} from '../../types/film';
-import {FilmDescType} from '../const';
+import {FilmDescType} from '../../const';
 import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 import FilmReviewList from '../film-review-list/film-review-list';
-import {reviews} from '../../mocks/reviews';
 
 type FilmCardDescriptionProps = {
   typeDesc:string;
@@ -21,7 +20,7 @@ function FilmCardDescription({typeDesc, film}:FilmCardDescriptionProps): JSX.Ele
       description = <FilmDetails film={film}/>;
       break;
     case FilmDescType.Reviews:
-      description = <FilmReviewList reviews={reviews}/>;
+      description = <FilmReviewList id={film.id}/>;
       break;
   }
   return description;

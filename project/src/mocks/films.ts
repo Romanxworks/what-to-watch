@@ -1,8 +1,8 @@
-import {Film} from '../types/film';
+import {Films} from '../types/film';
 
-export const films: Film[] = [
+export const films: Films = [
   {
-    id: 1,
+    id: -1,
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
     posterImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
     previewImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',

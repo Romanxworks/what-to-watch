@@ -1,26 +1,24 @@
-import {AuthStatus} from '../../components/const';
+import { useEffect } from 'react';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import {Film} from '../../types/film';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteFilmsAction } from '../../store/api-actions';
 
-type MyListPageProps = {
-  myFilms: Film[];
-  authStatus: AuthStatus;
-}
 
-function MyListPage({myFilms, authStatus}: MyListPageProps): JSX.Element{
-  const count = myFilms.length;
-  const isAuth = authStatus === AuthStatus.Auth;
+function MyListPage(): JSX.Element{
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFavoriteFilmsAction());
+  }, [dispatch]);
 
+  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
   return(
     <div className="user-page">
-      <Header title='My list' count={count} authStatus={isAuth}/>
+      <Header title='My list'/>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <div className="catalog__films-list">
-          {count > 1 ? <FilmsList films= {myFilms}/> : ''}
-        </div>
+        {favoriteFilms.length > 0 ? <FilmsList films= {favoriteFilms}/> : ''}
       </section>
       <Footer />
     </div>

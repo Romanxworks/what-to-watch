@@ -19,18 +19,29 @@ export enum FilmDescType {
   Reviews = 'Reviews',
 }
 
+export enum APIRoute {
+  Films = '/films',
+  Similar = '/similar',
+  Promo = '/promo',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export const GENRES: string[] = [
   'All genres',
-  'Comedies',
+  'Comedy',
   'Crime',
-  'Documentary',
-  'Dramas',
+  'Adventure',
+  'Drama',
   'Horror',
-  'Kids & Family',
+  'Fantasy',
   'Romance',
   'Sci-Fi',
-  'Thrillers'
+  'Thriller'
 ];
 
 export const STAR_COUNT = 10;
 export const FILMS_COUNT_PREV = 8;
+export const TIMEOUT_SHOW_ERROR = 2000;

@@ -1,27 +1,66 @@
 import {createReducer} from '@reduxjs/toolkit';
+import {Film, Films} from '../types/film';
+import { films } from '../mocks/films';
+import {AuthStatus, FILMS_COUNT_PREV, GENRES} from '../const';
 import {
   getFilmsByGenre,
   setGenre,
   incFilmsCount,
   resetFilmsCount,
+  loadFilms,
+  requireAuthorization,
+  loadPromoFilm,
+  setError,
+  setDataLoadedStatus,
+  loadSingleFilm,
+  loadSimilarFilms,
+  loadReviews,
+  loadFavoriteFilms,
+  setFavoritePromo,
+  loadUserData,
 } from './action';
-import {films} from '../mocks/films';
-import {AuthStatus, FILMS_COUNT_PREV, GENRES} from '../components/const';
+import {Reviews} from '../types/review';
+import { UserData } from '../types/user-data';
 
-const initialState = {
+
+type InitialState = {
+  genre: string;
+  filmsByGenre: Films;
+  promo: Film;
+  authStatus: AuthStatus;
+  filmCountPrev: number;
+  filmById: Film;
+  films: Films;
+  similarFilms: Films;
+  reviews: Reviews;
+  favoriteFilms: Films;
+  favoriteCount: number;
+  error: null | string;
+  isDataLoaded: boolean;
+  user: UserData | null;
+}
+
+const initialState: InitialState = {
   genre: GENRES[0],
-  filmsByGenre: films,
+  filmsByGenre: [],
   promo: films[0],
-  userStatus: AuthStatus.Auth,
+  authStatus: AuthStatus.Unknown,
   filmCountPrev: FILMS_COUNT_PREV,
-  films,
-
+  filmById: films[0],
+  films: [],
+  similarFilms: [],
+  reviews: [],
+  favoriteFilms: [],
+  favoriteCount: 0,
+  error: null,
+  isDataLoaded: false,
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setGenre, (state, action) => {
-      state.genre = action.payload.genre;
+      state.genre = action.payload;
       state.filmCountPrev = FILMS_COUNT_PREV;
     })
     .addCase(getFilmsByGenre, (state) => {
@@ -29,14 +68,49 @@ const reducer = createReducer(initialState, (builder) => {
         state.filmsByGenre = state.films;
         return;
       }
-      const filteredFilms = films.filter((film) => film.genre === state.genre);
-      state.filmsByGenre = [...filteredFilms];
+      const filteredFilms = state.films.filter((film) => film.genre === state.genre);
+      state.filmsByGenre = filteredFilms;
     })
     .addCase(incFilmsCount, (state) => {
       state.filmCountPrev += FILMS_COUNT_PREV;
     })
     .addCase(resetFilmsCount, (state) => {
       state.filmCountPrev = FILMS_COUNT_PREV;
+    })
+    .addCase(loadFilms, (state, action) => {
+      state.filmsByGenre = action.payload;
+      state.films = action.payload;
+    })
+    .addCase(loadPromoFilm, (state, action) => {
+      state.promo = action.payload;
+    })
+    .addCase(setFavoritePromo, (state, action) => {
+      state.promo.isFavorite = action.payload;
+    })
+    .addCase(loadSimilarFilms, (state, action) => {
+      state.similarFilms = action.payload;
+    })
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
+      state.favoriteCount = state.favoriteFilms.length;
+    })
+    .addCase(loadSingleFilm, (state, action) => {
+      state.filmById = action.payload;
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setDataLoadedStatus, (state, action) => {
+      state.isDataLoaded = action.payload;
+    })
+    .addCase(loadUserData, (state, action) => {
+      state.user = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authStatus = action.payload;
     });
 });
 

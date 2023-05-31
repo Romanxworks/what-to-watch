@@ -5,41 +5,47 @@ import FilmCardNav from '../../components/film-card-nav/film-card-nav';
 import FilmPoster from '../../components/film-poster/film-poster';
 import FilmDescription from '../../components/film-description/film-description';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
-import {useState, Fragment} from 'react';
-import {AuthStatus, FilmDescType} from '../../components/const';
-import {Film} from '../../types/film';
+import {useState, Fragment, useEffect} from 'react';
+import {AuthStatus, FilmDescType} from '../../const';
 import {useParams} from 'react-router-dom';
 import ErrorPage from '../error-page/error-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchSimilarFilmsAction, fetchSingleFilmAction } from '../../store/api-actions';
 
-type MoviePageProps = {
-  authStatus: AuthStatus;
-  films: Film[];
-}
-
-function MoviePage({authStatus, films}: MoviePageProps): JSX.Element{
+function MoviePage(): JSX.Element{
   const {id} = useParams();
+  const idToQuery = id ? +id : null;
+  const dispatch = useAppDispatch();
   const [filmDescType, setFilmDescType] = useState(FilmDescType.Overview);
-  const isAuth = authStatus === AuthStatus.Auth;
-  const filmById = films.find((film) => film.id === Number(id)) as Film;
-  const {name, backgroundImage, genre, released, posterImage} = filmById;
 
-  return filmById ?
+  useEffect(()=>{
+    if(idToQuery){
+      dispatch(fetchSingleFilmAction(idToQuery));
+      dispatch(fetchSimilarFilmsAction(idToQuery));
+    }
+  },[idToQuery, dispatch]);
+
+  const {authStatus, filmById, similarFilms} = useAppSelector((state)=>state);
+  const isAuth = authStatus === AuthStatus.Auth;
+  const similarFilmsList = similarFilms.filter((film)=>film.id !== idToQuery);
+  const isError = filmById.id >= 0;
+  return isError ?
     (
       <Fragment>
         <section className="film-card film-card--full">
           <div className="film-card__hero">
             <div className="film-card__bg">
-              <img src={isAuth ? backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? name : 'gues'} />
+              <img src={isAuth ? filmById.backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? filmById.name : 'gues'} />
             </div>
             <h1 className="visually-hidden">WTW</h1>
-            <Header authStatus={isAuth}/>
+            <Header />
             <div className="film-card__wrap">
-              <FilmDescription authStatus={isAuth} title={name} genre={genre} year={released} id={Number(id)}/>
+              <FilmDescription authStatus={isAuth} film={filmById} />
             </div>
           </div>
           <div className="film-card__wrap film-card__translate-top">
             <div className="film-card__info">
-              <FilmPoster posterSize={'big'} title={name} poster={posterImage}/>
+              <FilmPoster posterSize={'big'} title={filmById.name} poster={filmById.posterImage}/>
               <div className="film-card__desc">
                 <FilmCardNav filmTypeChange={setFilmDescType} typeDesc={filmDescType}/>
                 <FilmCardDescription typeDesc={filmDescType} film={filmById}/>
@@ -50,7 +56,7 @@ function MoviePage({authStatus, films}: MoviePageProps): JSX.Element{
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <FilmsList films={films.slice(5, 9)}/>
+            <FilmsList films={similarFilmsList}/>
           </section>
           <Footer />
         </div>
