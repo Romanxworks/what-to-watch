@@ -14,8 +14,12 @@
     * useParams - возвращает объект пар ключ/значение динамических параметров из текущего URL-адреса(react-router-dom);
     * useNavigate - возвращает функцию, которая позволяет программно перемещаться(react-router-dom);
     * useDispatch - доступ к store.dispatch (ссылка на dispatch функцию из хранилища Redux);
-    * useSelector - позволяет извлекать данные из состояния хранилища Redux с помощью функции выбора.
+    * useSelector - позволяет извлекать данные из состояния хранилища Redux с помощью функции выбора;
+    * useEffect - хук для side-эффектов(сторонние действия типа запросов к серверу);
 * Redux(Redux Toolkit) - знакомство и подключение к проекту;
+* Axios - пакет для запросов к серверу;
+* Middleware - (посредник) - знакомство с работой; 
+* Redux - thunk - middleware от redux;
 
 ----
 Учебный проект курса «[React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react)» от [HTML Academy](https://htmlacademy.ru).
