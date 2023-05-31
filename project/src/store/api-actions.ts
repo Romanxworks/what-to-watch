@@ -21,6 +21,7 @@ import {
 import {store} from './';
 import { Review, Reviews } from '../types/review.js';
 import { ReviewData } from '../types/review-data.js';
+import { FavoriteData } from '../types/favorite-data.js';
 
 export const clearErrorAction = createAsyncThunk(
   'app/clearError',
@@ -57,6 +58,19 @@ export const fetchFavoriteFilmsAction = createAsyncThunk<void, undefined, {
     dispatch(setDataLoadedStatus(true));
     dispatch(loadFavoriteFilms(data));
     dispatch(setDataLoadedStatus(false));
+  },
+);
+
+export const fetchSetFavoriteAction = createAsyncThunk<void, FavoriteData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchSetFavorite',
+  async ({id,status}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Film>(`${APIRoute.Favorite}/${id}/${status}`);
+    dispatch(fetchFavoriteFilmsAction());
+    dispatch(loadSingleFilm(data));
   },
 );
 
@@ -154,6 +168,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorization(AuthStatus.Auth));
+    dispatch(fetchFavoriteFilmsAction());
     dispatch(redirectToRoute(AppRoute.Main));
   },
 );
@@ -168,6 +183,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthStatus.NoAuth));
+    dispatch(loadFavoriteFilms([]));
   },
 );
 

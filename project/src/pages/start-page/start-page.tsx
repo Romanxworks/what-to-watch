@@ -6,10 +6,15 @@ import FilmsList from '../../components/films-list/films-list';
 import FilmDescription from '../../components/film-description/film-description';
 import FilmPoster from '../../components/film-poster/film-poster';
 import {AuthStatus} from '../../const';
-import {Fragment} from 'react';
-import {useAppSelector} from '../../hooks';
+import {Fragment, useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import { fetchPromoFilmAction } from '../../store/api-actions';
 
 function StartPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  }, [dispatch]);
   const {filmsByGenre, filmCountPrev, promo, authStatus} = useAppSelector((state) => state);
   const isAuth = authStatus === AuthStatus.Auth;
   return (
@@ -23,7 +28,7 @@ function StartPage(): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <FilmPoster poster={promo.posterImage} title={promo.name}/>
-            <FilmDescription authStatus={isAuth} film={promo}/>
+            <FilmDescription authStatus={isAuth} film={promo} isPromo/>
           </div>
         </div>
       </section>

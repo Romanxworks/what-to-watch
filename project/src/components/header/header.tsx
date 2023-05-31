@@ -1,9 +1,8 @@
 import {Link} from 'react-router-dom';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import {AppRoute, AuthStatus} from '../../const';
-import HeaderTitle from '../header-title/header-title';
+import {AppRoute} from '../../const';
 import UserBlock from '../user-block/user-block';
-import { useAppSelector } from '../../hooks';
+import {useAppSelector} from '../../hooks';
 
 type HeaderProps = {
   title?: string;
@@ -11,8 +10,7 @@ type HeaderProps = {
 }
 
 function Header({title, filmName}: HeaderProps): JSX.Element{
-  const {authStatus, favoriteCount} = useAppSelector((state)=>state);
-  const isAuth = authStatus === AuthStatus.Auth;
+  const {favoriteCount} = useAppSelector((state)=>state);
   return(
     <header className="page-header user-page__head film-card__head">
       <div className="logo">
@@ -22,9 +20,12 @@ function Header({title, filmName}: HeaderProps): JSX.Element{
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
-      {title && <HeaderTitle title={title} count={favoriteCount}/>}
+      {title &&
+      <h1 className="page-title user-page__title">{title}
+        <span className="user-page__film-count">{favoriteCount}</span>
+      </h1>}
       {filmName && <Breadcrumbs filmName={filmName}/>}
-      <UserBlock isAuth={isAuth} />
+      <UserBlock />
     </header>
   );
 }

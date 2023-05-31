@@ -16,6 +16,7 @@ import {
   loadSimilarFilms,
   loadReviews,
   loadFavoriteFilms,
+  setFavoritePromo,
 } from './action';
 import {Reviews} from '../types/review';
 
@@ -78,6 +79,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadPromoFilm, (state, action) => {
       state.promo = action.payload;
+    })
+    .addCase(setFavoritePromo, (state, action) => {
+      state.promo.isFavorite = action.payload;
     })
     .addCase(loadSimilarFilms, (state, action) => {
       state.similarFilms = action.payload;

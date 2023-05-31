@@ -1,25 +1,41 @@
 import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import { useAppSelector } from '../../hooks';
-import {Film} from '../../types/film';
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useState, useEffect } from 'react';
+import { fetchFavoriteFilmsAction, fetchSetFavoriteAction } from '../../store/api-actions';
+import { Film } from '../../types/film';
+import { setFavoritePromo } from '../../store/action';
 
 type FilmDescriptionProps = {
   authStatus: boolean;
   film: Film;
+  isPromo?: boolean;
 }
 
-function FilmDescription({authStatus, film}:FilmDescriptionProps): JSX.Element{
+function FilmDescription({authStatus, film, isPromo}:FilmDescriptionProps): JSX.Element{
   const {isFavorite, name, genre, released, id} = film;
-  const favoriteCount = useAppSelector((state)=>state.favoriteCount);
-  const [favoriteState, setFavoriteState] = useState(isFavorite);
+  const {favoriteCount} = useAppSelector((state)=>state);
+  const [favoriteState, setFavoriteState] = useState<boolean>(isFavorite);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    dispatch(fetchFavoriteFilmsAction());
+    setFavoriteState(isFavorite);
+  },[dispatch, favoriteCount, isFavorite]);
+
   function onFavoriteClickHandler(){
     if(!authStatus){
       navigate(AppRoute.Login);
     }
+
+    dispatch(fetchSetFavoriteAction({id, status:Number(!isFavorite)}));
+    if(isPromo){
+      dispatch(setFavoritePromo(!favoriteState));
+    }
     setFavoriteState(!favoriteState);
   }
-  const navigate = useNavigate();
+
   return (
     <div className="film-card__desc">
       <h2 className="film-card__title">{name}</h2>
@@ -40,7 +56,7 @@ function FilmDescription({authStatus, film}:FilmDescriptionProps): JSX.Element{
         <button className="btn btn--list film-card__button" type="button"
           onClick={onFavoriteClickHandler}
         >
-          { favoriteState ?
+          { isFavorite ?
             <svg viewBox="0 0 18 14" width="18" height="14">
               <use xlinkHref="#in-list"></use>
             </svg> :

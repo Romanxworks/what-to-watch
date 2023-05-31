@@ -1,13 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useAppDispatch} from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 
 function SingInPage(): JSX.Element {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({email:'', password: ''});
 
@@ -20,13 +17,12 @@ function SingInPage(): JSX.Element {
     if(formData.email !== null && formData.password !== null){
       dispatch(loginAction({...formData, login: formData.email}));
       setFormData({email:'', password: ''});
-      return navigate(AppRoute.Main);
     }
 
   }
   return(
     <div className="user-page">
-      <Header title='Sign in' />
+      <Header title='My list' />
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={onSubmitHandle}>
           <div className="sign-in__fields">

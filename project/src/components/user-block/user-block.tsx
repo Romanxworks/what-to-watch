@@ -1,13 +1,11 @@
 import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { logoutAction } from '../../store/api-actions';
+import {AppRoute, AuthStatus} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {logoutAction} from '../../store/api-actions';
 
-type UserBlockProps = {
-  isAuth: boolean;
-}
-
-function UserBlock({isAuth}: UserBlockProps): JSX.Element{
+function UserBlock(): JSX.Element{
+  const {authStatus} = useAppSelector((state)=>state);
+  const isAuth = authStatus === AuthStatus.Auth;
   const userLinkText = isAuth ? 'Sign out' : 'Sign in';
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
