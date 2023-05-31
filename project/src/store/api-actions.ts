@@ -16,7 +16,8 @@ import {
   loadSimilarFilms,
   loadReviews,
   loadFavoriteFilms,
-  redirectToRoute
+  redirectToRoute,
+  loadUserData
 } from './action';
 import {store} from './';
 import { Review, Reviews } from '../types/review.js';
@@ -165,8 +166,9 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
+    dispatch(loadUserData(data));
     dispatch(requireAuthorization(AuthStatus.Auth));
     dispatch(fetchFavoriteFilmsAction());
     dispatch(redirectToRoute(AppRoute.Main));

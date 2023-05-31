@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
 
 function UserBlock(): JSX.Element{
-  const {authStatus} = useAppSelector((state)=>state);
+  const {authStatus, user} = useAppSelector((state)=>state);
   const isAuth = authStatus === AuthStatus.Auth;
   const userLinkText = isAuth ? 'Sign out' : 'Sign in';
   const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ function UserBlock(): JSX.Element{
         isAuth ?
           <li className="user-block__item" onClick={()=>navigate(AppRoute.MyList)}>
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              <img src={user?.avatarUrl ?? 'img/avatar.jpg'} alt="User avatar" width="63" height="63" />
             </div>
           </li> : ''
       }

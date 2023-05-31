@@ -17,8 +17,10 @@ import {
   loadReviews,
   loadFavoriteFilms,
   setFavoritePromo,
+  loadUserData,
 } from './action';
 import {Reviews} from '../types/review';
+import { UserData } from '../types/user-data';
 
 
 type InitialState = {
@@ -35,6 +37,7 @@ type InitialState = {
   favoriteCount: number;
   error: null | string;
   isDataLoaded: boolean;
+  user: UserData | null;
 }
 
 const initialState: InitialState = {
@@ -51,6 +54,7 @@ const initialState: InitialState = {
   favoriteCount: 0,
   error: null,
   isDataLoaded: false,
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -101,6 +105,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;
+    })
+    .addCase(loadUserData, (state, action) => {
+      state.user = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authStatus = action.payload;
