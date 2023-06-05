@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 type FilmPosterProps = {
   posterSize?: string;
   title: string;
@@ -13,4 +15,4 @@ function FilmPoster({posterSize, title, poster}:FilmPosterProps): JSX.Element{
   );
 }
 
-export default FilmPoster;
+export default memo(FilmPoster);

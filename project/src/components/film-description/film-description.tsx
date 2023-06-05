@@ -20,9 +20,11 @@ function FilmDescription({authStatus, film, isPromo}:FilmDescriptionProps): JSX.
   const navigate = useNavigate();
 
   useEffect(()=>{
-    dispatch(fetchFavoriteFilmsAction());
-    setFavoriteState(isFavorite);
-  },[dispatch, favoriteCount, isFavorite]);
+    if(authStatus){
+      dispatch(fetchFavoriteFilmsAction());
+      setFavoriteState(isFavorite);
+    }
+  },[dispatch, favoriteCount, isFavorite, authStatus]);
 
   function onFavoriteClickHandler(){
     if(!authStatus){
