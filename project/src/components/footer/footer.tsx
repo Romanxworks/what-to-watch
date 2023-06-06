@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import { memo } from 'react';
 
 function Footer(): JSX.Element{
   return(
@@ -18,4 +19,4 @@ function Footer(): JSX.Element{
     </footer>);
 }
 
-export default Footer;
+export default memo(Footer);

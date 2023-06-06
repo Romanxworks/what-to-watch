@@ -5,7 +5,6 @@ import { Reviews } from '../types/review';
 import { UserData } from '../types/user-data';
 
 export const setGenre = createAction<string>('films/setGenre');
-export const getFilmsByGenre = createAction('films/getFilmsByGenre');
 export const incFilmsCount = createAction('films/incFilmsCount');
 export const resetFilmsCount = createAction('films/resetFilmsCount');
 

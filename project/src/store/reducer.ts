@@ -3,7 +3,6 @@ import {Film, Films} from '../types/film';
 import { films } from '../mocks/films';
 import {AuthStatus, FILMS_COUNT_PREV, GENRES} from '../const';
 import {
-  getFilmsByGenre,
   setGenre,
   incFilmsCount,
   resetFilmsCount,
@@ -58,8 +57,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setGenre, (state, action) => {
       state.genre = action.payload;
       state.filmCountPrev = FILMS_COUNT_PREV;
-    })
-    .addCase(getFilmsByGenre, (state) => {
       if(state.genre === GENRES[0]){
         state.filmsByGenre = state.films;
         return;

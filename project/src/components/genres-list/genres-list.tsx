@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, GENRES} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getFilmsByGenre, setGenre } from '../../store/action';
+import { setGenre } from '../../store/action';
 
 function GenresList(): JSX.Element{
   const activeClass = 'catalog__genres-item--active';
@@ -17,7 +17,6 @@ function GenresList(): JSX.Element{
           <Link to={AppRoute.Main} className="catalog__genres-link" onClick={(evt)=>{
             evt.preventDefault();
             dispatch(setGenre(evt.currentTarget.innerText));
-            dispatch(getFilmsByGenre());
           }}
           >{genre}
           </Link>
