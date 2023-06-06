@@ -40,7 +40,7 @@ function MoviePage(): JSX.Element{
             <h1 className="visually-hidden">WTW</h1>
             <Header />
             <div className="film-card__wrap">
-              <FilmDescription authStatus={isAuth} film={filmById} />
+              <FilmDescription />
             </div>
           </div>
           <div className="film-card__wrap film-card__translate-top">

@@ -9,14 +9,12 @@ import {
   resetFilmsCount,
   loadFilms,
   requireAuthorization,
-  loadPromoFilm,
   setError,
   setDataLoadedStatus,
   loadSingleFilm,
   loadSimilarFilms,
   loadReviews,
   loadFavoriteFilms,
-  setFavoritePromo,
   loadUserData,
 } from './action';
 import {Reviews} from '../types/review';
@@ -26,7 +24,6 @@ import { UserData } from '../types/user-data';
 type InitialState = {
   genre: string;
   filmsByGenre: Films;
-  promo: Film;
   authStatus: AuthStatus;
   filmCountPrev: number;
   filmById: Film;
@@ -43,7 +40,6 @@ type InitialState = {
 const initialState: InitialState = {
   genre: GENRES[0],
   filmsByGenre: [],
-  promo: films[0],
   authStatus: AuthStatus.Unknown,
   filmCountPrev: FILMS_COUNT_PREV,
   filmById: films[0],
@@ -80,12 +76,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadFilms, (state, action) => {
       state.filmsByGenre = action.payload;
       state.films = action.payload;
-    })
-    .addCase(loadPromoFilm, (state, action) => {
-      state.promo = action.payload;
-    })
-    .addCase(setFavoritePromo, (state, action) => {
-      state.promo.isFavorite = action.payload;
     })
     .addCase(loadSimilarFilms, (state, action) => {
       state.similarFilms = action.payload;

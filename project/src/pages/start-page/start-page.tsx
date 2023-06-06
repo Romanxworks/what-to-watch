@@ -8,27 +8,27 @@ import FilmPoster from '../../components/film-poster/film-poster';
 import {AuthStatus} from '../../const';
 import {Fragment, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import { fetchPromoFilmAction } from '../../store/api-actions';
+import {fetchPromoFilmAction} from '../../store/api-actions';
 
 function StartPage(): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
   }, [dispatch]);
-  const {filmsByGenre, filmCountPrev, promo, authStatus} = useAppSelector((state) => state);
+  const {filmsByGenre, filmCountPrev, filmById, authStatus} = useAppSelector((state) => state);
   const isAuth = authStatus === AuthStatus.Auth;
   return (
     <Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={isAuth ? promo.backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? promo.name : 'gues'} />
+          <img src={isAuth ? filmById.backgroundImage : 'img/bg-header.jpg'} alt={isAuth ? filmById.name : 'gues'} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <Header />
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <FilmPoster poster={promo.posterImage} title={promo.name}/>
-            <FilmDescription authStatus={isAuth} film={promo} isPromo/>
+            <FilmPoster poster={filmById.posterImage} title={filmById.name}/>
+            <FilmDescription />
           </div>
         </div>
       </section>

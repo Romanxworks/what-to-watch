@@ -9,7 +9,6 @@ import {Film, Films} from '../types/film.js';
 import {
   loadFilms,
   requireAuthorization,
-  loadPromoFilm,
   setError,
   loadSingleFilm,
   setDataLoadedStatus,
@@ -98,7 +97,7 @@ export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
     dispatch(setDataLoadedStatus(true));
-    dispatch(loadPromoFilm(data));
+    dispatch(loadSingleFilm(data));
     dispatch(setDataLoadedStatus(false));
   },
 );

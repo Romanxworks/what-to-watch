@@ -1,40 +1,31 @@
 import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useState, useEffect } from 'react';
 import { fetchFavoriteFilmsAction, fetchSetFavoriteAction } from '../../store/api-actions';
-import { Film } from '../../types/film';
-import { setFavoritePromo } from '../../store/action';
 
-type FilmDescriptionProps = {
-  authStatus: boolean;
-  film: Film;
-  isPromo?: boolean;
-}
-
-function FilmDescription({authStatus, film, isPromo}:FilmDescriptionProps): JSX.Element{
-  const {isFavorite, name, genre, released, id} = film;
-  const {favoriteCount} = useAppSelector((state)=>state);
+function FilmDescription(): JSX.Element{
+  const {favoriteCount, filmById, authStatus} = useAppSelector((state)=>state);
+  const isAuth = authStatus === AuthStatus.Auth;
+  const {isFavorite, name, genre, released, id} = filmById;
   const [favoriteState, setFavoriteState] = useState<boolean>(isFavorite);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(()=>{
-    if(authStatus){
+    if(isAuth){
       dispatch(fetchFavoriteFilmsAction());
       setFavoriteState(isFavorite);
     }
-  },[dispatch, favoriteCount, isFavorite, authStatus]);
+  },[dispatch, isFavorite, isAuth]);
 
   function onFavoriteClickHandler(){
-    if(!authStatus){
+    if(!isAuth){
       navigate(AppRoute.Login);
+      return;
     }
 
     dispatch(fetchSetFavoriteAction({id, status:Number(!isFavorite)}));
-    if(isPromo){
-      dispatch(setFavoritePromo(!favoriteState));
-    }
     setFavoriteState(!favoriteState);
   }
 
@@ -66,9 +57,9 @@ function FilmDescription({authStatus, film, isPromo}:FilmDescriptionProps): JSX.
               <use xlinkHref="#add"></use>
             </svg>}
           <span>My list</span>
-          {authStatus ? <span className="film-card__count">{favoriteCount}</span> : null}
+          {isAuth ? <span className="film-card__count">{favoriteCount}</span> : null}
         </button>
-        {authStatus ? <Link to={`${AppRoute.Film}/${id ?? ''}/${AppRoute.Review}`} className="btn film-card__button">Add review</Link> : null}
+        {isAuth ? <Link to={`${AppRoute.Film}/${id ?? ''}/${AppRoute.Review}`} className="btn film-card__button">Add review</Link> : null}
       </div>
     </div>
   );
