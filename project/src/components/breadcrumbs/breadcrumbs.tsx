@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {Link} from 'react-router-dom';
 
 type BreadcrumbsProps = {
@@ -19,4 +20,4 @@ function Breadcrumbs({filmName}: BreadcrumbsProps): JSX.Element{
   );
 }
 
-export default Breadcrumbs;
+export default memo(Breadcrumbs);

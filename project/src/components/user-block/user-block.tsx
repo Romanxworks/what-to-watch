@@ -2,9 +2,11 @@ import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
+import {memo} from 'react';
 
 function UserBlock(): JSX.Element{
-  const {authStatus, user} = useAppSelector((state)=>state);
+  const authStatus = useAppSelector((state)=>state.authStatus);
+  const user = useAppSelector((state)=>state.user);
   const isAuth = authStatus === AuthStatus.Auth;
   const userLinkText = isAuth ? 'Sign out' : 'Sign in';
   const dispatch = useAppDispatch();
@@ -30,4 +32,4 @@ function UserBlock(): JSX.Element{
   );
 }
 
-export default UserBlock;
+export default memo(UserBlock);

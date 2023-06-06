@@ -1,8 +1,9 @@
-import {Link} from 'react-router-dom';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import {AppRoute} from '../../const';
 import UserBlock from '../user-block/user-block';
 import {useAppSelector} from '../../hooks';
+import {Link} from 'react-router-dom';
+import {memo} from 'react';
 
 type HeaderProps = {
   title?: string;
@@ -10,7 +11,7 @@ type HeaderProps = {
 }
 
 function Header({title, filmName}: HeaderProps): JSX.Element{
-  const {favoriteCount} = useAppSelector((state)=>state);
+  const favoriteCount = useAppSelector((state)=>state.favoriteCount);
   return(
     <header className="page-header user-page__head film-card__head">
       <div className="logo">
@@ -20,14 +21,14 @@ function Header({title, filmName}: HeaderProps): JSX.Element{
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
-      {title &&
-      <h1 className="page-title user-page__title">{title}
-        <span className="user-page__film-count">{favoriteCount}</span>
-      </h1>}
-      {filmName && <Breadcrumbs filmName={filmName}/>}
+      {title ?
+        <h1 className="page-title user-page__title">{title}
+          <span className="user-page__film-count">{favoriteCount}</span>
+        </h1> : ''}
+      {filmName ? <Breadcrumbs filmName={filmName}/> : ''}
       <UserBlock />
     </header>
   );
 }
 
-export default Header;
+export default memo(Header);
